@@ -1,0 +1,37 @@
+{
+  "name": "center-system",
+  "version": "1.0.0",
+  "description": "Center system",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "npm test test/*"
+  },
+  "author": "MobiCare Team",
+  "license": "ISC",
+  "devDependencies": {
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.16.2",
+    "helmet": "^6.0.0",
+    "jsonwebtoken": "9.0.0",
+    "mysql2": "3.2.0",
+    "winston": "^3.8.2"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CatchCode-Team/Center-System-Server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CatchCode-Team/Center-System-Server/issues"
+  },
+  "homepage": "https://github.com/CatchCode-Team/Center-System-Server#README.md"
+}

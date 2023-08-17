@@ -1,5 +1,6 @@
 import mysql2 from 'mysql2'
 import { config } from 'dotenv'
+import { Query } from 'mysql2/typings/mysql/lib/protocol/sequences/Query'
 
 config()
 
@@ -10,4 +11,11 @@ const connection = mysql2.createConnection({
     password: process.env.DB_PASSWORD,
 })
 
-export default connection.promise()
+const executeQuery = async (query, callback) => {
+    const [result, _] = connection.execute(query, callback)
+    connection.end(callback)
+
+    return result
+}
+
+export default executeQuery

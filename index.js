@@ -2,19 +2,21 @@ import express, { json } from "express"
 import cors from 'cors'
 import { config } from 'dotenv'
 
+import AdminRoutes from "./routes/admin.route.js"
+import StudentRoutes from "./routes/student.route.js"
 
-config() // ALLOWS ENVIRONMENT VARIABLES TO BE SET ON PROCESS.ENV
-const PORT = process.env.PORT || 4001
+config()
+const PORT = process.env.PORT || 8000
 
 const app = express()
 
+// Middleware
 app.use(cors())
-app.use(json()) // parse json bodies in the request object
+app.use(json())
 app.use(express.urlencoded({ extended: false }))
 
-app.get("/", (req, res) => {
-    res.send('Hello from server!')
-})
+app.use('/admin', AdminRoutes)
+app.use('/student', StudentRoutes)
 
 app.listen(PORT, () => {
     console.log(`Server is Listening on http://localhost:${PORT}`)

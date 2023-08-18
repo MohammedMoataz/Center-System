@@ -1,6 +1,5 @@
 import mysql2 from 'mysql2'
 import { config } from 'dotenv'
-import { Query } from 'mysql2/typings/mysql/lib/protocol/sequences/Query'
 
 config()
 

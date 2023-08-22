@@ -1,3 +1,5 @@
+import { executeQuery } from "../config/db/db.js"
+
 export const cruds = {
     create: async (sql) => executeQuery(sql),
 

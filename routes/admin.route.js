@@ -1,17 +1,20 @@
 import { Router } from "express"
 
-import { create, deleteById, getById, updateById } from "../controllers/admin.controller.js"
+import { create, deleteById, getAll, getById, updateById } from "../controllers/admin.controller.js"
 
 const router = Router()
 
 router.route("/create")
     .post(create)
 
-router.route("/updateById")
+router.route("/update")
     .post(updateById)
 
 router.route("/get")
     .get(getById)
+
+router.route("/all")
+    .get(getAll)
 
 router.route("/delete")
     .delete(deleteById)

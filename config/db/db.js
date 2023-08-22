@@ -9,12 +9,14 @@ const connection = mysql2.createConnection({
     database: process.env.DB_NAME,
     password: process.env.DB_PASSWORD,
 })
+    .promise()
 
-const executeQuery = async (query, callback) => {
-    const [result, _] = connection.execute(query, callback)
-    connection.end(callback)
+export const executeQuery = async query =>
+    connection.connect()
+        .then(async () => {
+            let result = await connection.execute(query)
+            // await connection.end()
 
-    return result
-}
-
-export default executeQuery
+            return result[0][0][0]
+        })
+        .catch(console.error)

@@ -80,7 +80,9 @@ export const getById = async (req, res) => {
 }
 
 export const getAll = async (req, res) => {
-
+    console.log("req.body")
+    console.log(req.body)
+    res.send({ hello: "Hello" })
 }
 
 export const deleteById = async (req, res) => {

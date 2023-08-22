@@ -10,8 +10,7 @@
   },
   "author": "MobiCare Team",
   "license": "ISC",
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
     "bcrypt": "^5.1.0",
     "body-parser": "^1.18.2",

@@ -7,7 +7,7 @@ const router = Router()
 router.route("/create")
     .post(create)
 
-router.route("/updateById")
+router.route("/update")
     .post(updateById)
 
 router.route("/get")

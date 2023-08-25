@@ -1,67 +1,35 @@
-import { cruds } from "../utils/crud.js"
+const AdminModel = {
+    id: 0,
+    f_name: null,
+    l_name: null,
+    email: null,
+    pass: null,
+    phone_no: null,
+    sup_pass: null,
+    start_shift: null,
+    end_shift: null,
 
-export const Admin = {
-    data: {
-        f_name: "",
-        l_name: "",
-        email: "",
-        pass: "",
-        phone_no: "",
-        sup_pass: "",
-        start_shift: "",
-        end_shift: "",
-
-        _created_at: "",
-        _updated_at: "",
-        _deleted_at: "",
-    },
-
-    create: async (admin) => await cruds.create(`
-        call center_system.insert_admin(
-            '${admin.f_name}', 
-            '${admin.l_name}', 
-            '${admin.email}', 
-            '${admin.pass}', 
-            '${admin.phone}', 
-            '${admin.superPass}', 
-            '${admin.startShift}', 
-            '${admin.endShift}', 
-            '${admin._created_at}'
-        );
-    `),
-
-    updateById: async (id, admin) => await cruds.updateById(`
-        call center_system.update_admin(
-            '${id}', 
-            '${admin.f_name}', 
-            '${admin.l_name}', 
-            '${admin.email}', 
-            '${admin.pass}', 
-            '${admin.phone}', 
-            '${admin.superPass}', 
-            '${admin.startShift}', 
-            '${admin.endShift}', 
-            '${admin._updated_at}'
-        );
-    `),
-
-    getById: async (id) => await cruds.getById(`
-        call center_system.get_admin(
-            '${id}'
-        );
-    `),
-
-    getAll: async (id) => await cruds.getAll(`
-        call center_system.get_admins(
-            '${id}'
-        );
-    `),
-
-    deleteById: async (id, deleted_at) => await cruds.deleteById(`
-        call center_system.delete_admin(
-            ${id}',
-            '${deleted_at}'
-        );
-    `),
+    _created_at: null,
+    _updated_at: null,
+    _deleted_at: null,
 }
 
+export default {
+    set: (admin) => {
+        AdminModel.id = admin.id
+        AdminModel.f_name = admin.first_name
+        AdminModel.l_name = admin.last_name
+        AdminModel.email = admin.email
+        AdminModel.pass = admin.password
+        AdminModel.phone_no = admin.phone_number
+        AdminModel.sup_pass = admin.super_password
+        AdminModel.start_shift = admin.start_shift
+        AdminModel.end_shift = admin.end_shift
+
+        AdminModel._created_at = admin._created_at
+        AdminModel._updated_at = admin._updated_at
+        AdminModel._deleted_at = admin._deleted_at
+    },
+
+    get: () => AdminModel
+}

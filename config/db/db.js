@@ -17,6 +17,6 @@ export const executeQuery = async query =>
             let result = await connection.execute(query)
             // await connection.end()
 
-            return result[0][0][0]
+            return result
         })
         .catch(console.error)

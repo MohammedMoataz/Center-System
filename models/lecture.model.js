@@ -1,65 +1,33 @@
-import { cruds } from "../utils/crud.js"
-import { Admin } from "./admin.model.js"
-import { Hall } from "./hall.model.js"
-import { Subject } from "./subject.model.js"
+const LectureModel = {
+    id: 0,
+    code: null,
+    timestamp: null,
+    cost: 0,
+    sub_id: 0,
+    t_id: 0,
+    hall_id: 0,
+    admin_id: 0,
 
-export const Lecture = {
-    data: {
-        code: "",
-        cost: 0,
-        timestamp: "",
-        subject: Subject,
-        admin: Admin,
-        all: Hall,
+    _created_at: null,
+    _updated_at: null,
+    _deleted_at: null,
+}
 
-        _created_at: "",
-        _updated_at: "",
-        _deleted_at: "",
+export default {
+    set: (lecture) => {
+        LectureModel.id = lecture.id
+        LectureModel.code = lecture.code
+        LectureModel.timestamp = lecture.timestamp
+        LectureModel.cost = lecture.cost
+        LectureModel.sub_id = lecture.subject_id
+        LectureModel.t_id = lecture.teacher_id
+        LectureModel.hall_id = lecture.hall_id
+        LectureModel.admin_id = lecture.admin_id
+
+        LectureModel._created_at = lecture._created_at
+        LectureModel._updated_at = lecture._updated_at
+        LectureModel._deleted_at = lecture._deleted_at
     },
 
-    create: async (lecture) => await cruds.create(`
-        call center_system.insert_lecture(
-            '${lecture.code}', 
-            '${lecture.cost}', 
-            '${lecture.timestamp}', 
-            '${lecture.sub_id}', 
-            '${lecture.t_id}', 
-            '${lecture.hall_id}'
-            '${lecture.admin_id}'
-            '${lecture._created_at}'
-        );
-    `),
-
-    updateById: async (id, lecture) => await cruds.updateById(`
-        call center_system.update_lecture(
-            '${id}', 
-            '${lecture.code}', 
-            '${lecture.cost}', 
-            '${lecture.timestamp}', 
-            '${lecture.sub_id}', 
-            '${lecture.t_id}', 
-            '${lecture.hall_id}'
-            '${lecture.admin_id}' 
-            '${lecture._updated_at}'
-        );
-    `),
-
-    getById: async (id) => await cruds.getById(`
-        call center_system.get_lecture(
-            '${id}'
-        );
-    `),
-
-    getAll: async () => await cruds.getAll(`
-        call center_system.get_lectures(
-            '${id}'
-        );
-    `),
-
-    deleteById: async (id, deleted_at) => await cruds.deleteById(`
-        call center_system.delete_lecture(
-        ${id}',
-        '${deleted_at}'
-        );
-    `),
+    get: () => LectureModel
 }

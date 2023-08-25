@@ -27,3 +27,7 @@ export const register = (req, res) => {
         :
         res.send("Failed to register")
 }
+
+export const refreshAccessToken = () => {
+
+}

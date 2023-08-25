@@ -1,64 +1,35 @@
-import { cruds } from "../utils/crud.js"
+const StudentModel = {
+    id: 0,
+    f_name: null,
+    l_name: null,
+    email: null,
+    username: null,
+    pass: null,
+    phone_no: null,
+    address: null,
+    level: 1,
 
-export const Student = {
-    data: {
-        f_name: "",
-        l_name: "",
-        email: "",
-        pass: "",
-        phone_number: "",
-        parents_numbers: [],
-        address: "",
-        level: 0,
+    _created_at: null,
+    _updated_at: null,
+    _deleted_at: null,
+}
 
-        _created_at: "",
-        _updated_at: "",
-        _deleted_at: "",
+export default {
+    set: (student) => {
+        StudentModel.id = student.id
+        StudentModel.f_name = student.first_name
+        StudentModel.l_name = student.last_name
+        StudentModel.email = student.email
+        StudentModel.username = student.username
+        StudentModel.pass = student.password
+        StudentModel.phone_no = student.phone_number
+        StudentModel.address = student.address
+        StudentModel.level = student.level
+
+        StudentModel._created_at = student._created_at
+        StudentModel._updated_at = student._updated_at
+        StudentModel._deleted_at = student._deleted_at
     },
 
-    create: async (student) => await cruds.create(`
-        call center_system.insert_student(
-            '${student.f_name}', 
-            '${student.l_name}', 
-            '${student.email}', 
-            '${student.pass}', 
-            '${student.phone_number}', 
-            '${student.address}'
-            '${student.level}'
-            '${student._created_at}'
-        );
-    `),
-
-    updateById: async (id, student) => await cruds.updateById(`
-        call center_system.update_student(
-            '${id}', 
-            '${student.f_name}', 
-            '${student.l_name}', 
-            '${student.email}', 
-            '${student.pass}', 
-            '${student.phone_number}', 
-            '${student.address}'
-            '${student.level}'
-            '${student._updated_at}'
-        );
-    `),
-
-    getById: async (id) => await cruds.getById(`
-        call center_system.get_student(
-            '${id}'
-        );
-    `),
-
-    getAll: async () => await cruds.getAll(`
-        call center_system.get_students(
-            '${id}'
-        );
-    `),
-
-    deleteById: async (id, deleted_at) => await cruds.deleteById(`
-        call center_system.delete_student(
-            ${id}',
-            '${deleted_at}'
-        );
-    `),
+    get: () => StudentModel
 }

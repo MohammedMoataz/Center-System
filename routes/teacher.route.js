@@ -3,66 +3,48 @@
  * 
  * components:
  *   schemas:
- *     Admin:
+ *     Teacher:
  *       type: object
  *       required:
+ *         - id
  *         - first_name
  *         - last_name
- *         - email
- *         - password
- *         - phone_number
- *         - super_password
- *         - start_shift
- *         - end_shift
+ *         - bio
  *       properties:
+ *         id:
+ *           type: integer
+ *           description: The id of the teacher
  *         first_name:
  *           type: string
- *           description: First name of the admin
+ *           description: The first name of the teacher
  *         last_name:
  *           type: string
- *           description: Last name of the admin
- *         email:
+ *           description: The last name of the teacher
+ *         bio:
  *           type: string
- *           format: email
- *           description: Email address of the admin
- *         password:
+ *           description: The bio of the teacher
+ *         image:
  *           type: string
- *           format: password
- *           description: Password of the admin
- *         phone_number:
- *           type: string
- *           description: Phone number of the admin
- *         super_password:
- *           type: string
- *           format: password
- *           description: Super password of the admin
- *         start_shift:
- *           type: string
- *           format: time
- *           description: Start time of the admin's shift
- *         end_shift:
- *           type: string
- *           format: time
- *           description: End time of the admin's shift
+ *           description: The image of the teacher
  *         _created_at:
  *           type: string
  *           format: date-time
  *           readOnly: true
- *           description: Timestamp when the admin was created
+ *           description: Timestamp when the teacher was created
  *         _updated_at:
  *           type: string
  *           format: date-time
  *           readOnly: true
- *           description: Timestamp when the admin was last updated
+ *           description: Timestamp when the teacher was last updated
  */
 /** 
  * @swagger
  * 
- * /admin/create:
+ * /teacher/create:
  *   post:
- *     summary: Create an admin
- *     tags: [Admin Routes]
- *     operationId: createAdmin
+ *     summary: Create an teacher
+ *     tags: [Teacher Routes]
+ *     operationId: createTeacher
  *     consumes:
  *       - application/json
  *     produces:
@@ -72,22 +54,22 @@
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Admin'
+ *             $ref: '#/components/schemas/Teacher'
  *     responses:
  *       '201':
- *         description: Admin created successfully
+ *         description: Teacher created successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Admin'
+ *               $ref: '#/components/schemas/Teacher'
  *       '500':
  *         description: Some server error
  *
- * /admin/update:
+ * /teacher/update:
  *   put:
- *     summary: Update an admin by ID
- *     tags: [Admin Routes]
- *     operationId: updateAdminById
+ *     summary: Update an teacher by ID
+ *     tags: [Teacher Routes]
+ *     operationId: updateTeacherById
  *     consumes:
  *       - application/json
  *     produces:
@@ -97,25 +79,25 @@
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Admin'
+ *             $ref: '#/components/schemas/Teacher'
  *             id:
  *               type: int
  *               required: true
  *     responses:
  *       '200':
- *         description: Admin updated successfully
+ *         description: Teacher updated successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Admin'
+ *               $ref: '#/components/schemas/Teacher'
  *       '500':
  *         description: Some server error
  * 
- * /admin/get:
+ * /teacher/get:
  *   get:
- *     summary: Get an admin by ID
- *     tags: [Admin Routes]
- *     operationId: getAdminById
+ *     summary: Get an teacher by ID
+ *     tags: [Teacher Routes]
+ *     operationId: getTeacherById
  *     parameters:
  *       - name: id
  *         in: query
@@ -123,26 +105,26 @@
  *         type: int
  *     responses:
  *       '200':
- *         description: Admin retrieved successfully
+ *         description: Teacher retrieved successfully
  *       '500':
  *         description: Some server error
  * 
- * /admin/all:
+ * /teacher/all:
  *   get:
- *     summary: Get all admins
- *     tags: [Admin Routes]
- *     operationId: getAllAdmins
+ *     summary: Get all teacher
+ *     tags: [Teacher Routes]
+ *     operationId: getAllTeacher
  *     responses:
  *       '200':
- *         description: Admins retrieved successfully
+ *         description: Teachers retrieved successfully
  *       '500':
  *         description: Some server error
  * 
- * /admin/delete:
+ * /teacher/delete:
  *   delete:
- *     summary: Delete an admin by ID
- *     tags: [Admin Routes]
- *     operationId: deleteAdminById
+ *     summary: Delete an teacher by ID
+ *     tags: [Teacher Routes]
+ *     operationId: deleteTeacherById
  *     parameters:
  *       - name: id
  *         in: query
@@ -150,14 +132,14 @@
  *         type: int
  *     responses:
  *       '200':
- *         description: Admin deleted successfully
+ *         description: Teacher deleted successfully
  *       '500':
  *         description: Some server error
  */
 
 import { Router } from "express"
 
-import { create, deleteById, getAll, getById, updateById } from "../controllers/admin.controller.js"
+import { create, deleteById, getById, getAll, updateById } from "../controllers/teacher.controller.js"
 
 const router = Router()
 

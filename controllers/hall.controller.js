@@ -1,35 +1,35 @@
-import StudentService from '../services/student.service.js'
+import HallService from '../services/hall.service.js'
 
 export const create = async (req, res) => {
-    const newStudent = req.body
-    let response = await StudentService.create(newStudent)
+    const newHall = req.body
+    let response = await HallService.create(newHall)
 
     res.send({ data: response, message: "Success!" })
 }
 
 export const updateById = async (req, res) => {
-    const updatedStudent = req.body
-    let response = await StudentService.updateById(updatedStudent)
+    const updatedHall = req.body
+    let response = await HallService.updateById(updatedHall)
 
     res.send({ data: response, message: "Success!" })
 }
 
 export const getById = async (req, res) => {
-    const studentId = req.query.id
-    let response = await StudentService.getById(studentId)
+    const hallId = req.query.id
+    let response = await HallService.getById(hallId)
 
     res.send({ data: response, message: "Success!" })
 }
 
 export const getAll = async (req, res) => {
-    let response = await StudentService.getAll()
+    let response = await HallService.getAll()
 
     res.send({ data: response, message: "Success!" })
 }
 
 export const deleteById = async (req, res) => {
-    const studentId = req.query.id
-    let response = await StudentService.deleteById(studentId, `2006-02-15 04:46:27`)
+    const hallId = req.query.id
+    let response = await HallService.deleteById(hallId, `2006-02-15 04:46:27`)
 
     res.send({ data: response, message: "Success!" })
 }

@@ -1,54 +1,27 @@
-import { cruds } from "../utils/crud.js"
+const TeacherModel = {
+    id: 0,
+    f_name: null,
+    l_name: null,
+    bio: null,
+    image: null,
 
-export const Teacher = {
-    data: {
-        f_name: "",
-        l_name: "",
-        bio: "",
-        phone_numbers: [],
-        subjects: [],
-
-        _created_at: "",
-        _updated_at: "",
-        _deleted_at: "",
-    },
-
-    create: async (teacher) => await cruds.create(`
-        call center_system.insert_teacher(
-            '${teacher.f_name}', 
-            '${teacher.l_name}', 
-            '${teacher.bio}', 
-            '${teacher._created_at}'
-        );
-    `),
-
-    updateById: async (id, teacher) => await cruds.updateById(`
-        call center_system.update_teacher(
-            '${id}', 
-            '${teacher.f_name}', 
-            '${teacher.l_name}', 
-            '${teacher.bio}', 
-            '${teacher._updated_at}'
-        );
-    `),
-
-    getById: async (id) => await cruds.getById(`
-        call center_system.get_teacher(
-            '${id}'
-       );
-    `),
-
-    getAll: async () => await cruds.getAll(`
-        call center_system.get_teachers(
-            '${id}'
-        );
-    `),
-
-    deleteById: async (id, deleted_at) => await cruds.deleteById(`
-        call center_system.delete_teacher(
-            ${id}',
-            '${deleted_at}'
-        );
-    `),
+    _created_at: null,
+    _updated_at: null,
+    _deleted_at: null,
 }
 
+export default {
+    set: (teacher) => {
+        TeacherModel.id = teacher.id
+        TeacherModel.f_name = teacher.first_name
+        TeacherModel.l_name = teacher.last_name
+        TeacherModel.bio = teacher.bio
+        TeacherModel.image = teacher.image
+
+        TeacherModel._created_at = teacher._created_at
+        TeacherModel._updated_at = teacher._updated_at
+        TeacherModel._deleted_at = teacher._deleted_at
+    },
+
+    get: () => TeacherModel
+}

@@ -156,23 +156,24 @@
 
 import { Router } from "express"
 
+import StudentMiddleware from "../middlewares/student.middleware.js"
 import { create, deleteById, getById, getAll, updateById } from "../controllers/student.controller.js"
 
 const router = Router()
 
 router.route("/create")
-    .post(create)
+    .post(StudentMiddleware, create)
 
 router.route("/update")
-    .put(updateById)
+    .put(StudentMiddleware, updateById)
 
 router.route("/get")
-    .get(getById)
+    .get(StudentMiddleware, getById)
 
 router.route("/all")
-    .get(getAll)
+    .get(StudentMiddleware, getAll)
 
 router.route("/delete")
-    .delete(deleteById)
+    .delete(StudentMiddleware, deleteById)
 
 export default router

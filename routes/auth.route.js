@@ -2,6 +2,15 @@
  * @swagger
  * 
  * components:
+ *   securitySchemes:
+ *     BearerAuth:
+ *       type: http
+ *       scheme: bearer
+ */
+/**
+ * @swagger
+ * 
+ * components:
  *   schemas:
  *     AdminLogin:
  *       type: object

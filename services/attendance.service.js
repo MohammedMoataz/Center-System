@@ -47,4 +47,36 @@ export default {
             })
             .catch(console.error)
     },
+
+    getLectureAttendances: async (lecture_id) => {
+        return AttendanceRepository.getLectureAttendances(lecture_id)
+            .then((data) => {
+                Array.from(data[0][0])
+                    .forEach(attendance => {
+                        AttendanceDTO.addAll(attendance)
+                    })
+                return AttendanceDTO.getAll()
+            })
+            .then((data) => {
+                AttendanceDTO.clear()
+                return data
+            })
+            .catch(console.error)
+    },
+
+    getStudentAttandances: async (student_id) => {
+        return AttendanceRepository.getStudentAttandances(student_id)
+            .then((data) => {
+                Array.from(data[0][0])
+                    .forEach(attendance => {
+                        AttendanceDTO.addAll(attendance)
+                    })
+                return AttendanceDTO.getAll()
+            })
+            .then((data) => {
+                AttendanceDTO.clear()
+                return data
+            })
+            .catch(console.error)
+    },
 }

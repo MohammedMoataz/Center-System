@@ -28,12 +28,25 @@ export default {
         );
     `),
 
+    getPhones: async (teacher_id) => await executeQuery(`
+        call center_system.get_teacher_phones(
+            '${teacher_id}'
+        );
+    `),
+
     getAll: async () => await executeQuery(`
         call center_system.get_all_teachers();
     `),
 
     deleteById: async (id, deleted_at) => await executeQuery(`
         call center_system.delete_teacher(
+            '${id}',
+            '${deleted_at}'
+        );
+    `),
+
+    deletePhone: async (id, deleted_at) => await executeQuery(`
+        call center_system.delete_teacher_phone(
             '${id}',
             '${deleted_at}'
         );

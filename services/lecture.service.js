@@ -31,7 +31,7 @@ export default {
             })
             .catch(console.error)
     },
-
+    
     getAll: async () => {
         return LectureRepository.getAll()
             .then((data) => {

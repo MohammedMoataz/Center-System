@@ -20,9 +20,15 @@ export default {
         );
     `),
 
-    getById: async (id) => await executeQuery(`
-        call center_system.get_attendance(
-            '${id}'
+    getLectureAttendances: async (lecture_id) => await executeQuery(`
+        call center_system.get_lecture_attendances(
+            '${lecture_id}'
+        );
+    `),
+
+    getStudentAttandances: async (student_id) => await executeQuery(`
+        call center_system.get_student_attendances(
+            '${student_id}'
         );
     `),
 

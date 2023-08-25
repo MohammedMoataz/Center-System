@@ -36,12 +36,25 @@ export default {
         );
     `),
 
+    getParentPhones: async (student_id) => await executeQuery(`
+        call center_system.get_parents_no(
+            '${student_id}'
+        );
+    `),
+
     getAll: async () => await executeQuery(`
         call center_system.get_all_students();
     `),
 
     deleteById: async (id, deleted_at) => await executeQuery(`
         call center_system.delete_student(
+            '${id}',
+            '${deleted_at}'
+        );
+    `),
+
+    deleteParentPhone: async () => await executeQuery(`
+        call center_system.delete_parents_no(
             '${id}',
             '${deleted_at}'
         );

@@ -38,12 +38,14 @@
  *           description: Super password of the admin
  *         start_shift:
  *           type: string
- *           format: time
+ *           format: date-time
  *           description: Start time of the admin's shift
+ *           example: '12:12:12'
  *         end_shift:
  *           type: string
- *           format: time
+ *           format: date-time
  *           description: End time of the admin's shift
+ *           example: '12:12:12'
  *         _created_at:
  *           type: string
  *           format: date-time
@@ -86,6 +88,8 @@
  * /admin/update:
  *   put:
  *     summary: Update an admin by ID
+ *     security:
+ *       - BearerAuth: [Admin]
  *     tags: [Admin Routes]
  *     operationId: updateAdminById
  *     consumes:
@@ -157,23 +161,24 @@
 
 import { Router } from "express"
 
+import AdminMiddleware from "../middlewares/admin.middleware.js"
 import { create, deleteById, getAll, getById, updateById } from "../controllers/admin.controller.js"
 
 const router = Router()
 
 router.route("/create")
-    .post(create)
+    .post(AdminMiddleware, create)
 
 router.route("/update")
-    .put(updateById)
+    .put(AdminMiddleware, updateById)
 
 router.route("/get")
-    .get(getById)
+    .get(AdminMiddleware, getById)
 
 router.route("/all")
-    .get(getAll)
+    .get(AdminMiddleware, getAll)
 
 router.route("/delete")
-    .delete(deleteById)
+    .delete(AdminMiddleware, deleteById)
 
 export default router

@@ -1,10 +1,11 @@
 import AttendanceRepository from "../repositories/attendance.repository.js"
 import AttendanceDTO from "../dtos/attendance.dto.js"
 import AttendanceModel from "../models/attendance.model.js"
+import { handleTimestamp } from "../utils/helper.js"
 
 export default {
     create: async (attendance) => {
-        attendance._created_at = `2006-02-15 04:46:27`
+        attendance._created_at = handleTimestamp(new Date(Date.now()))
         AttendanceModel.set(attendance)
 
         return AttendanceRepository.create(AttendanceModel.get())
@@ -13,7 +14,7 @@ export default {
     },
 
     updateById: async (attendance) => {
-        attendance._updated_at = `2006-02-15 04:46:27`
+        attendance._updated_at = handleTimestamp(new Date(Date.now()))
         AttendanceModel.set(attendance)
 
         return AttendanceRepository.updateById(AttendanceModel.get())

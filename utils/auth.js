@@ -9,11 +9,11 @@ const SALT_ROUNDS = process.env.SALT_ROUNDS
 
 /**
  * 
- * @param payload The payload to be encrypted.
- * @param SALT_ROUNDS The salt to be used in encryption. If specified as a number then a
+ * @param {Object} payload The payload to be encrypted.
+ * @param {Number} SALT_ROUNDS The salt to be used in encryption. If specified as a number then a
  * salt will be generated with the specified number of rounds and used.
  *
- * @returns The encrypted payload
+ * @returns {String} The encrypted payload
  */
 export const hash = async (payload) =>
     bcrypt.genSalt(SALT_ROUNDS, async (err, salt) =>
@@ -34,7 +34,7 @@ export const compareHashedData = async (data, hash) =>
  * 
  * @param {Object} payload Payload to sign, could be an literal, buffer or string
  * 
- * @returns The JSON Web Token string
+ * @returns {String} The JSON Web Token string
  */
 export const generateAccessToken = async (payload) =>
     Jwt.sign(payload, ACCESS_TOKEN_SECRET, { expiresIn: "8h" })
@@ -44,16 +44,7 @@ export const generateAccessToken = async (payload) =>
  * 
  * @param {String} token JWT string to verify
  * 
- * @returns The decoded token.
+ * @returns {Object} The decoded token.
  */
 export const verifyToken = async (token) =>
     Jwt.verify(token, ACCESS_TOKEN_SECRET, { complete: true })
-
-/**
- * 
- * @param {Object} data The data to be uniqe
- * 
- * @returns a unique and new string from the passed data
- */
-export const generateUniqueData = (data) =>
-    `${data}+${Date.now()}`

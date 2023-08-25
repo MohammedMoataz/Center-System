@@ -29,7 +29,7 @@ export const getAll = async (req, res) => {
 
 export const deleteById = async (req, res) => {
     const adminId = req.query.id
-    let response = await AdminService.deleteById(adminId, `2006-02-15 04:46:27`)
+    let response = await AdminService.deleteById(adminId)
 
     res.send({ data: response, message: "Success!" })
 }

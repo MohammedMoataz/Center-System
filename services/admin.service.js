@@ -1,10 +1,11 @@
 import AdminRepository from "../repositories/admin.repository.js"
 import AdminDTO from "../dtos/admin.dto.js"
 import AdminModel from "../models/admin.model.js"
+import { handleTimestamp } from "../utils/helper.js"
 
 export default {
     create: async (admin) => {
-        admin._created_at = `2006-02-15 04:46:27`
+        admin._created_at = handleTimestamp(new Date(Date.now()))
         AdminModel.set(admin)
 
         return AdminRepository.create(AdminModel.get())
@@ -13,7 +14,7 @@ export default {
     },
 
     updateById: async (admin) => {
-        admin._updated_at = `2006-02-15 04:46:27`
+        admin._updated_at = handleTimestamp(new Date(Date.now()))
         AdminModel.set(admin)
 
         return AdminRepository.updateById(AdminModel.get())
@@ -47,8 +48,9 @@ export default {
             .catch(console.error)
     },
 
-    deleteById: async (id, deleted_at) => {
-        return AdminRepository.deleteById(id, deleted_at)
+    deleteById: async (id) => {
+        let timestamp = handleTimestamp(new Date(Date.now()))
+        return AdminRepository.deleteById(id, timestamp)
             .then((data) => {
                 return data[0]
             })

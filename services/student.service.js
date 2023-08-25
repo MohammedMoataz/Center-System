@@ -1,10 +1,11 @@
 import StudentRepository from "../repositories/student.repository.js"
 import StudentDTO from "../dtos/student.dto.js"
 import StudentModel from "../models/student.model.js"
+import { handleTimestamp } from "../utils/helper.js"
 
 export default {
     create: async (student) => {
-        student._created_at = `2006-02-15 04:46:27`
+        student._created_at = handleTimestamp(new Date(Date.now()))
         StudentModel.set(student)
 
         return StudentRepository.create(StudentModel.get())
@@ -13,7 +14,7 @@ export default {
     },
 
     updateById: async (student) => {
-        student._updated_at = `2006-02-15 04:46:27`
+        student._updated_at = handleTimestamp(new Date(Date.now()))
         StudentModel.set(student)
 
         return StudentRepository.updateById(StudentModel.get())
@@ -47,8 +48,9 @@ export default {
             .catch(console.error)
     },
 
-    deleteById: async (id, deleted_at) => {
-        return StudentRepository.deleteById(id, deleted_at)
+    deleteById: async (id) => {
+        let timestamp = handleTimestamp(new Date(Date.now()))
+        return StudentRepository.deleteById(id, timestamp)
             .then((data) => {
                 return data[0]
             })

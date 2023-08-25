@@ -5,6 +5,7 @@ import swaggerJsdoc from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
 import { config } from 'dotenv'
 
+import AuthRoutes from './routes/auth.route.js'
 import AdminRoutes from './routes/admin.route.js'
 import StudentRoutes from './routes/student.route.js'
 import { options } from './utils/constants.js'
@@ -23,7 +24,7 @@ app.use(json())
 app.use(express.urlencoded({ extended: false }))
 
 // Routes
-app.get('/', (req, res) => res.redirect(`http://localhost:${PORT}/api-docs`))
+app.use('/', AuthRoutes)
 app.use('/admin', AdminRoutes)
 app.use('/student', StudentRoutes)
 app.use(

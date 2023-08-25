@@ -1,10 +1,11 @@
 import LectureRepository from "../repositories/lecture.repository.js"
 import LectureDTO from "../dtos/lecture.dto.js"
 import LectureModel from "../models/lecture.model.js"
+import { handleTimestamp } from "../utils/helper.js"
 
 export default {
     create: async (lecture) => {
-        lecture._created_at = `2006-02-15 04:46:27`
+        lecture._created_at = handleTimestamp(new Date(Date.now()))
         LectureModel.set(lecture)
 
         return LectureRepository.create(LectureModel.get())
@@ -13,7 +14,7 @@ export default {
     },
 
     updateById: async (lecture) => {
-        lecture._updated_at = `2006-02-15 04:46:27`
+        lecture._updated_at = handleTimestamp(new Date(Date.now()))
         LectureModel.set(lecture)
 
         return LectureRepository.updateById(LectureModel.get())
@@ -47,8 +48,9 @@ export default {
             .catch(console.error)
     },
 
-    deleteById: async (id, deleted_at) => {
-        return LectureRepository.deleteById(id, deleted_at)
+    deleteById: async (id) => {
+        let timestamp = handleTimestamp(new Date(Date.now()))
+        return LectureRepository.deleteById(id, timestamp)
             .then((data) => {
                 return data[0]
             })

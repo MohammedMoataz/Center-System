@@ -1,10 +1,11 @@
 import SubjectRepository from "../repositories/subject.repository.js"
 import SubjectDTO from "../dtos/subject.dto.js"
 import SubjectModel from "../models/subject.model.js"
+import { handleTimestamp } from "../utils/helper.js"
 
 export default {
     create: async (subject) => {
-        subject._created_at = `2006-02-15 04:46:27`
+        subject._created_at = handleTimestamp(new Date(Date.now()))
         SubjectModel.set(subject)
 
         return SubjectRepository.create(SubjectModel.get())
@@ -13,7 +14,7 @@ export default {
     },
 
     updateById: async (subject) => {
-        subject._updated_at = `2006-02-15 04:46:27`
+        subject._updated_at = handleTimestamp(new Date(Date.now()))
         SubjectModel.set(subject)
 
         return SubjectRepository.updateById(SubjectModel.get())
@@ -47,8 +48,9 @@ export default {
             .catch(console.error)
     },
 
-    deleteById: async (id, deleted_at) => {
-        return SubjectRepository.deleteById(id, deleted_at)
+    deleteById: async (id) => {
+        let timestamp = handleTimestamp(new Date(Date.now()))
+        return SubjectRepository.deleteById(id, timestamp)
             .then((data) => {
                 return data[0]
             })

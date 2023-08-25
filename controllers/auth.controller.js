@@ -1,12 +1,18 @@
+import { config } from 'dotenv'
+
+config()
+const PORT = process.env.PORT || 8000
+
+export const redirect = (req, res) => res.redirect(`http://localhost:${PORT}/api-docs`)
+
+export const adminLogin = (req, res) => {
+    res.send("Success")
+}
+
 export const login = (req, res) => {
     const { username, pass } = req.body
 
-    username && pass
-        ?
-        res.send("Successfully logged in")
-
-        :
-        res.send("Failed to login")
+    res.send("Successfully logged in")
 }
 
 export const register = (req, res) => {
@@ -20,14 +26,9 @@ export const register = (req, res) => {
         level,
     } = req.body
 
-    f_name & l_name & email & pass & phone_number & address & level
-        ?
-        res.send("Successfully registered")
-
-        :
-        res.send("Failed to register")
+    res.send("Successfully registered")
 }
 
-export const refreshAccessToken = () => {
-
+export const refreshAccessToken = (req, res) => {
+    res.send("Success")
 }

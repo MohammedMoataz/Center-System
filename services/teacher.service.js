@@ -1,10 +1,11 @@
-import TeacherRepository from "../repositories/teacher.repository.js"
-import TeacherDTO from "../dtos/teacher.dto.js"
-import TeacherModel from "../models/teacher.model.js"
+import TeacherRepository from '../repositories/teacher.repository.js'
+import TeacherDTO from '../dtos/teacher.dto.js'
+import TeacherModel from '../models/teacher.model.js'
+import { handleTimestamp } from '../utils/helper.js'
 
 export default {
     create: async (teacher) => {
-        teacher._created_at = `2006-02-15 04:46:27`
+        teacher._created_at = handleTimestamp(new Date(Date.now()))
         TeacherModel.set(teacher)
 
         return TeacherRepository.create(TeacherModel.get())
@@ -13,7 +14,7 @@ export default {
     },
 
     updateById: async (teacher) => {
-        teacher._updated_at = `2006-02-15 04:46:27`
+        teacher._updated_at = handleTimestamp(new Date(Date.now()))
         TeacherModel.set(teacher)
 
         return TeacherRepository.updateById(TeacherModel.get())
@@ -47,8 +48,9 @@ export default {
             .catch(console.error)
     },
 
-    deleteById: async (id, deleted_at) => {
-        return TeacherRepository.deleteById(id, deleted_at)
+    deleteById: async (id) => {
+        let timestamp = handleTimestamp(new Date(Date.now()))
+        return TeacherRepository.deleteById(id, timestamp)
             .then((data) => {
                 return data[0]
             })

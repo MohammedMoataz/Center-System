@@ -9,7 +9,7 @@ import AuthService from '../services/auth.service.js'
 import StudentService from '../services/student.service.js'
 
 config()
-const PORT = process.env.PORT || 8000
+const PORT = process.env.PORT || 4000
 
 export const redirect = (req, res) => res.redirect(`http://localhost:${PORT}/api-docs`)
 
@@ -29,12 +29,12 @@ export const adminLogin = async (req, res) => {
 }
 
 export const login = async (req, res) => {
-    const { email, password } = req.body
+    const { username, password } = req.body
 
-    AuthService.loginStudent(email, password)
+    AuthService.loginStudent(username, password)
         .then((student) => {
-            const access_token = generateAccessToken({ email: student.email, password: student.password })
-            const refresh_token = generateRefreshToken({ email: student.email, password: student.password })
+            const access_token = generateAccessToken({ username: student.username, password: student.password })
+            const refresh_token = generateRefreshToken({ username: student.username, password: student.password })
 
             AuthService.updateStudentToken(student.id, refresh_token)
                 .then(() => res.send({ data: { access_token, refresh_token }, message: "Successfully logged in" }))

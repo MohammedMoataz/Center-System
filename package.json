@@ -5,7 +5,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon server.js",
+    "start-server": "nodemon server.js",
+    "start-auth": "nodemon server.auth.js",
     "test": "npm test test/*"
   },
   "author": "MobiCare Team",

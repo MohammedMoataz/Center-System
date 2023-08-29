@@ -1,3 +1,8 @@
+import { config } from 'dotenv'
+
+config()
+const PORT = process.env.PORT || 4000
+
 // swagger options configuration
 const swaggerDefinition = {
     openapi: "3.1.0",
@@ -18,8 +23,8 @@ const swaggerDefinition = {
     },
     servers: [
         {
-            url: "http://localhost:5000",
-            description: 'Development server',
+            url: `http://localhost:${PORT}`,
+            description: 'Development Server',
         },
     ],
 }
@@ -28,5 +33,5 @@ export default {
     explorer: true,
     failOnErrors: true,
     swaggerDefinition,
-    apis: ['./routes/*.route.js'],
+    apis: ['./routes/auth.route.js', './routes/*.route.js'],
 }

@@ -1,35 +1,35 @@
 import HallService from '../services/hall.service.js'
 
 export const create = async (req, res) => {
-    const newHall = req.body
-    let response = await HallService.create(newHall)
-
-    res.send({ data: response, message: "Success!" })
+    const new_hall = req.body
+    HallService.create(new_hall)
+        .then(data => res.send({ data, message: "Success!" }))
+        .catch(err => res.send({ message: err.message }))
 }
 
 export const updateById = async (req, res) => {
-    const updatedHall = req.body
-    let response = await HallService.updateById(updatedHall)
-
-    res.send({ data: response, message: "Success!" })
+    const updated_hall = req.body
+    HallService.updateById(updated_hall)
+        .then(data => res.send({ data, message: "Success!" }))
+        .catch(err => res.send({ message: err.message }))
 }
 
 export const getById = async (req, res) => {
-    const hallId = req.query.id
-    let response = await HallService.getById(hallId)
-
-    res.send({ data: response, message: "Success!" })
+    const hall_id = req.query.id
+    HallService.getById(hall_id)
+        .then(data => res.send({ data, message: "Success!" }))
+        .catch(err => res.send({ message: err.message }))
 }
 
 export const getAll = async (req, res) => {
-    let response = await HallService.getAll()
-
-    res.send({ data: response, message: "Success!" })
+    HallService.getAll()
+        .then(data => res.send({ data, message: "Success!" }))
+        .catch(err => res.send({ message: err.message }))
 }
 
 export const deleteById = async (req, res) => {
-    const hallId = req.query.id
-    let response = await HallService.deleteById(hallId)
-
-    res.send({ data: response, message: "Success!" })
+    const hall_id = req.query.id
+    HallService.deleteById(hall_id)
+        .then(data => res.send({ data, message: "Success!" }))
+        .catch(err => res.send({ message: err.message }))
 }

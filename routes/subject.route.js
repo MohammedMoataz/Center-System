@@ -13,6 +13,7 @@
  *       properties:
  *         id:
  *           type: integer
+ *           minimum: 1
  *           description: The id of the subject
  *         code:
  *           type: string
@@ -38,9 +39,11 @@
 /** 
  * @swagger
  * 
- * /subject/create:
+ * /subject:
  *   post:
  *     summary: Create an subject
+ *     security:
+ *       - bearerAuth: []
  *     tags: [Subject Routes]
  *     operationId: createSubject
  *     consumes:
@@ -63,9 +66,10 @@
  *       '500':
  *         description: Some server error
  *
- * /subject/update:
  *   put:
  *     summary: Update an subject by ID
+ *     security:
+ *       - bearerAuth: []
  *     tags: [Subject Routes]
  *     operationId: updateSubjectById
  *     consumes:
@@ -79,7 +83,8 @@
  *           schema:
  *             $ref: '#/components/schemas/Subject'
  *             id:
- *               type: int
+ *               type: integer
+ *               minimum: 1
  *               required: true
  *     responses:
  *       '200':
@@ -91,9 +96,10 @@
  *       '500':
  *         description: Some server error
  * 
- * /subject/get:
  *   get:
  *     summary: Get an subject by ID
+ *     security:
+ *       - bearerAuth: []
  *     tags: [Subject Routes]
  *     operationId: getSubjectById
  *     parameters:
@@ -104,23 +110,17 @@
  *     responses:
  *       '200':
  *         description: Subject retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Subject'
  *       '500':
  *         description: Some server error
  * 
- * /subject/all:
- *   get:
- *     summary: Get all subject
- *     tags: [Subject Routes]
- *     operationId: getAllSubject
- *     responses:
- *       '200':
- *         description: Subjects retrieved successfully
- *       '500':
- *         description: Some server error
- * 
- * /subject/delete:
  *   delete:
  *     summary: Delete an subject by ID
+ *     security:
+ *       - bearerAuth: []
  *     tags: [Subject Routes]
  *     operationId: deleteSubjectById
  *     parameters:
@@ -133,27 +133,48 @@
  *         description: Subject deleted successfully
  *       '500':
  *         description: Some server error
+ * 
+ * /subject/all:
+ *   get:
+ *     summary: Get all subject
+ *     security:
+ *       - bearerAuth: []
+ *     tags: [Subject Routes]
+ *     operationId: getAllSubject
+ *     responses:
+ *       '200':
+ *         description: Subjects retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Subject'
+ *       '500':
+ *         description: Some server error
  */
 
 import { Router } from "express"
 
-import { create, deleteById, getById, getAll, updateById } from "../controllers/subject.controller.js"
+import {
+    create,
+    deleteById,
+    getById,
+    getAll,
+    updateById
+} from "../controllers/subject.controller.js"
+import AdminMiddleware from "../middlewares/admin.middleware.js"
 
 const router = Router()
 
-router.route("/create")
-    .post(create)
-
-router.route("/update")
-    .put(updateById)
-
-router.route("/get")
-    .get(getById)
+router.route("/")
+    .post(AdminMiddleware, create)
+    .put(AdminMiddleware, updateById)
+    .get(AdminMiddleware, getById)
+    .delete(AdminMiddleware, deleteById)
 
 router.route("/all")
-    .get(getAll)
+    .get(AdminMiddleware, getAll)
 
-router.route("/delete")
-    .delete(deleteById)
 
 export default router

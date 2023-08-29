@@ -1,11 +1,13 @@
 import LectureRepository from "../repositories/lecture.repository.js"
 import LectureDTO from "../dtos/lecture.dto.js"
 import LectureModel from "../models/lecture.model.js"
-import { handleTimestamp } from "../utils/helper.js"
 
 export default {
     create: async (lecture) => {
-        lecture._created_at = handleTimestamp(new Date(Date.now()))
+        lecture._created_at = new Date(Date.now())
+            .toJSON()
+            .replace('T', ' ')
+            .replace('Z', '')
         LectureModel.set(lecture)
 
         return LectureRepository.create(LectureModel.get())
@@ -14,7 +16,10 @@ export default {
     },
 
     updateById: async (lecture) => {
-        lecture._updated_at = handleTimestamp(new Date(Date.now()))
+        lecture._updated_at = new Date(Date.now())
+            .toJSON()
+            .replace('T', ' ')
+            .replace('Z', '')
         LectureModel.set(lecture)
 
         return LectureRepository.updateById(LectureModel.get())
@@ -22,38 +27,37 @@ export default {
             .catch(console.error)
     },
 
-    getById: async (id) => {
-        return LectureRepository.getById(id)
+    getById: async (id) =>
+        LectureRepository.getById(id)
             .then((data) => {
                 LectureDTO.set(data[0][0][0])
 
                 return LectureDTO.get()
             })
-            .catch(console.error)
-    },
-    
-    getAll: async () => {
-        return LectureRepository.getAll()
+            .catch(console.error),
+
+    getAll: async () =>
+        LectureRepository.getAll()
             .then((data) => {
                 Array.from(data[0][0])
-                    .forEach(lecture => {
-                        LectureDTO.addAll(lecture)
-                    })
+                    .forEach(lecture => LectureDTO.addAll(lecture))
+
                 return LectureDTO.getAll()
             })
             .then((data) => {
                 LectureDTO.clear()
                 return data
             })
-            .catch(console.error)
-    },
+            .catch(console.error),
 
     deleteById: async (id) => {
-        let timestamp = handleTimestamp(new Date(Date.now()))
+        let timestamp = new Date(Date.now())
+            .toJSON()
+            .replace('T', ' ')
+            .replace('Z', '')
+
         return LectureRepository.deleteById(id, timestamp)
-            .then((data) => {
-                return data[0]
-            })
+            .then((data) => data[0])
             .catch(console.error)
     },
 }

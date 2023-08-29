@@ -1,10 +1,16 @@
-import { verifyToken } from "../utils/auth.js"
+import { verifyToken } from "../common/auth.js"
 
 export default (req, res, next) => {
-    const token = req.header('Authorization').split(' ')[1]
-    verifyToken(token)
-        .then(decoded => {
-            console.log({ decoded })
-        })
-    next()
+    const authHeader = req.header('Authorization')
+    const token = authHeader && authHeader.split(' ')[1]
+
+    if (token == null) return res.status(401)
+
+    verifyToken(token, (err, admin) => {
+        if (err) return res.status(403)
+
+        req.admin = admin
+        console.log({ admin })
+        next()
+    })
 }

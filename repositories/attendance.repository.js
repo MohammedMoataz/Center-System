@@ -20,19 +20,19 @@ export default {
         );
     `),
 
-    getLectureAttendances: async (lecture_id) => await executeQuery(`
-        call center_system.get_lecture_attendances(
+    getAll: async () => await executeQuery(`
+        call center_system.get_all_attendees();
+    `),
+
+    getLectureAttendees: async (lecture_id) => await executeQuery(`
+        call center_system.get_lecture_attendees(
             '${lecture_id}'
         );
     `),
 
-    getStudentAttandances: async (student_id) => await executeQuery(`
-        call center_system.get_student_attendances(
+    getStudentAttendees: async (student_id) => await executeQuery(`
+        call center_system.get_student_attendees(
             '${student_id}'
         );
-    `),
-
-    getAll: async () => await executeQuery(`
-        call center_system.get_all_attendances();
     `),
 }

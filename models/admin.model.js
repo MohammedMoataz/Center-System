@@ -8,6 +8,7 @@ const AdminModel = {
     sup_pass: null,
     start_shift: null,
     end_shift: null,
+    access_token: null,
 
     _created_at: null,
     _updated_at: null,
@@ -25,6 +26,7 @@ export default {
         AdminModel.sup_pass = admin.super_password
         AdminModel.start_shift = admin.start_shift
         AdminModel.end_shift = admin.end_shift
+        AdminModel.access_token = admin.access_token
 
         AdminModel._created_at = admin._created_at
         AdminModel._updated_at = admin._updated_at

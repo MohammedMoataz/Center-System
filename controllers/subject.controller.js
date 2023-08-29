@@ -1,35 +1,35 @@
 import SubjectService from '../services/subject.service.js'
 
 export const create = async (req, res) => {
-    const newSubject = req.body
-    let response = await SubjectService.create(newSubject)
-
-    res.send({ data: response, message: "Success!" })
+    const new_subject = req.body
+    SubjectService.create(new_subject)
+        .then(data => res.send({ data, message: "Success!" }))
+        .catch(err => res.send({ message: err.message }))
 }
 
 export const updateById = async (req, res) => {
-    const updatedSubject = req.body
-    let response = await SubjectService.updateById(updatedSubject)
-
-    res.send({ data: response, message: "Success!" })
+    const updated_subject = req.body
+    SubjectService.updateById(updated_subject)
+        .then(data => res.send({ data, message: "Success!" }))
+        .catch(err => res.send({ message: err.message }))
 }
 
 export const getById = async (req, res) => {
-    const subjectId = req.query.id
-    let response = await SubjectService.getById(subjectId)
-
-    res.send({ data: response, message: "Success!" })
+    const subject_id = req.query.id
+    SubjectService.getById(subject_id)
+        .then(data => res.send({ data, message: "Success!" }))
+        .catch(err => res.send({ message: err.message }))
 }
 
 export const getAll = async (req, res) => {
-    let response = await SubjectService.getAll()
-
-    res.send({ data: response, message: "Success!" })
+    SubjectService.getAll()
+        .then(data => res.send({ data, message: "Success!" }))
+        .catch(err => res.send({ message: err.message }))
 }
 
 export const deleteById = async (req, res) => {
-    const subjectId = req.query.id
-    let response = await SubjectService.deleteById(subjectId)
-
-    res.send({ data: response, message: "Success!" })
+    const subject_id = req.query.id
+    SubjectService.deleteById(subject_id)
+        .then(data => res.send({ data, message: "Success!" }))
+        .catch(err => res.send({ message: err.message }))
 }

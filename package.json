@@ -2,10 +2,10 @@
   "name": "center-system",
   "version": "1.0.0",
   "description": "Center system",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon server.js",
     "test": "npm test test/*"
   },
   "author": "MobiCare Team",
@@ -15,6 +15,7 @@
     "bcrypt": "^5.1.0",
     "body-parser": "^1.18.2",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "dotenv": "^16.0.3",
     "express": "^4.16.2",
     "helmet": "^6.0.0",

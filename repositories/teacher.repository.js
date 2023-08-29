@@ -11,6 +11,13 @@ export default {
         );
     `),
 
+    addPhone: async (teacher_phone) => await executeQuery(`
+        call center_system.insert_teacher_phone(
+            '${teacher_phone.t_id}', 
+            '${teacher_phone.phone_no}'
+        );
+    `),
+
     updateById: async (teacher) => await executeQuery(`
         call center_system.update_teacher(
             '${teacher.id}', 
@@ -19,6 +26,13 @@ export default {
             '${teacher.bio}', 
             '${teacher.image}', 
             '${teacher._updated_at}'
+        );
+    `),
+
+    updatePhone: async (teacher_phone) => await executeQuery(`
+        call center_system.update_teacher_phone(
+            '${teacher_phone.t_id}', 
+            '${teacher_phone.phone_no}'
         );
     `),
 

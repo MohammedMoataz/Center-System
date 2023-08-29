@@ -18,10 +18,10 @@
  *           type: string
  *           description: The name/number of the hall
  *         cost:
- *           type: string
+ *           type: integer
  *           description: The cost of the hall
  *         capacity:
- *           type: string
+ *           type: integer
  *           description: The number of people this hall can hold
  *         _created_at:
  *           type: string
@@ -37,9 +37,11 @@
 /** 
  * @swagger
  * 
- * /hall/create:
+ * /hall:
  *   post:
  *     summary: Create a hall
+ *     security:
+ *       - bearerAuth: []
  *     tags: [Hall Routes]
  *     operationId: createHall
  *     consumes:
@@ -58,9 +60,10 @@
  *         schema:
  *           $ref: '#/components/schemas/Hall'
  * 
- * /hall/update:
  *   put:
  *     summary: Update an hall by ID
+ *     security:
+ *       - bearerAuth: []
  *     tags: [Hall Routes]
  *     operationId: updateHallById
  *     consumes:
@@ -88,9 +91,10 @@
  *       '500':
  *         description: Some server error
  * 
- * /hall/get:
  *   get:
  *     summary: Get an hall by ID
+ *     security:
+ *       - bearerAuth: []
  *     tags: [Hall Routes]
  *     operationId: getHallById
  *     parameters:
@@ -101,23 +105,17 @@
  *     responses:
  *       '200':
  *         description: Hall retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Hall'
  *       '500':
  *         description: Some server error
  * 
- * /hall/all:
- *   get:
- *     summary: Get all halls
- *     tags: [Hall Routes]
- *     operationId: getAllHalls
- *     responses:
- *       '200':
- *         description: Halls retrieved successfully
- *       '500':
- *         description: Some server error
- * 
- * /hall/delete:
  *   delete:
  *     summary: Delete an hall by ID
+ *     security:
+ *       - bearerAuth: []
  *     tags: [Hall Routes]
  *     operationId: deleteHallById
  *     parameters:
@@ -130,27 +128,47 @@
  *         description: Hall deleted successfully
  *       '500':
  *         description: Some server error
+ * 
+ * /hall/all:
+ *   get:
+ *     summary: Get all halls
+ *     security:
+ *       - bearerAuth: []
+ *     tags: [Hall Routes]
+ *     operationId: getAllHalls
+ *     responses:
+ *       '200':
+ *         description: Halls retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Hall'
+ *       '500':
+ *         description: Some server error
  */
 
 import { Router } from "express"
 
-import { create, deleteById, getById, getAll, updateById } from "../controllers/hall.controller.js"
+import {
+    create,
+    deleteById,
+    getById,
+    getAll,
+    updateById
+} from "../controllers/hall.controller.js"
+import AdminMiddleware from "../middlewares/admin.middleware.js"
 
 const router = Router()
 
-router.route("/create")
-    .post(create)
-
-router.route("/update")
-    .put(updateById)
-
-router.route("/get")
-    .get(getById)
+router.route("/")
+    .post(AdminMiddleware, create)
+    .put(AdminMiddleware, updateById)
+    .get(AdminMiddleware, getById)
+    .delete(AdminMiddleware, deleteById)
 
 router.route("/all")
-    .get(getAll)
-
-router.route("/delete")
-    .delete(deleteById)
+    .get(AdminMiddleware, getAll)
 
 export default router

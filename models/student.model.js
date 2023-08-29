@@ -7,7 +7,8 @@ const StudentModel = {
     pass: null,
     phone_no: null,
     address: null,
-    level: 1,
+    level: 0,
+    access_token: null,
 
     _created_at: null,
     _updated_at: null,
@@ -25,6 +26,7 @@ export default {
         StudentModel.phone_no = student.phone_number
         StudentModel.address = student.address
         StudentModel.level = student.level
+        StudentModel.access_token = student.access_token
 
         StudentModel._created_at = student._created_at
         StudentModel._updated_at = student._updated_at

@@ -1,11 +1,13 @@
 import AdminRepository from "../repositories/admin.repository.js"
 import AdminDTO from "../dtos/admin.dto.js"
 import AdminModel from "../models/admin.model.js"
-import { handleTimestamp } from "../utils/helper.js"
 
 export default {
     create: async (admin) => {
-        admin._created_at = handleTimestamp(new Date(Date.now()))
+        admin._created_at = new Date(Date.now())
+            .toJSON()
+            .replace('T', ' ')
+            .replace('Z', '')
         AdminModel.set(admin)
 
         return AdminRepository.create(AdminModel.get())
@@ -14,7 +16,10 @@ export default {
     },
 
     updateById: async (admin) => {
-        admin._updated_at = handleTimestamp(new Date(Date.now()))
+        admin._updated_at = new Date(Date.now())
+            .toJSON()
+            .replace('T', ' ')
+            .replace('Z', '')
         AdminModel.set(admin)
 
         return AdminRepository.updateById(AdminModel.get())
@@ -22,38 +27,37 @@ export default {
             .catch(console.error)
     },
 
-    getById: async (id) => {
-        return AdminRepository.getById(id)
+    getById: async (id) =>
+        AdminRepository.getById(id)
             .then((data) => {
                 AdminDTO.set(data[0][0][0])
-
+                
                 return AdminDTO.get()
             })
-            .catch(console.error)
-    },
+            .catch(console.error),
 
-    getAll: async () => {
-        return AdminRepository.getAll()
+    getAll: async () =>
+        AdminRepository.getAll()
             .then((data) => {
                 Array.from(data[0][0])
-                    .forEach(admin => {
-                        AdminDTO.addAll(admin)
-                    })
+                    .forEach(admin => AdminDTO.addAll(admin))
+
                 return AdminDTO.getAll()
             })
             .then((data) => {
                 AdminDTO.clear()
                 return data
             })
-            .catch(console.error)
-    },
+            .catch(console.error),
 
     deleteById: async (id) => {
-        let timestamp = handleTimestamp(new Date(Date.now()))
+        let timestamp = new Date(Date.now())
+            .toJSON()
+            .replace('T', ' ')
+            .replace('Z', '')
+
         return AdminRepository.deleteById(id, timestamp)
-            .then((data) => {
-                return data[0]
-            })
+            .then((data) => data[0])
             .catch(console.error)
     },
 }

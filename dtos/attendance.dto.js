@@ -1,23 +1,23 @@
-let AttendanceDTO = {
+const AttendanceDTO = {
     id: 0,
     student: {
+        id: 0,
         username: null,
-        email: null,
         phone_number: null,
-        address: null,
         level: 0,
     },
     lecture: {
+        id: 0,
         code: null,
         timestamp: null,
     },
     attended: false,
 
-    _created_at: "",
-    _updated_at: "",
+    _created_at: null,
+    _updated_at: null,
 }
 
-let AttendancesDTO = []
+let AttendeesDTO = []
 
 export default {
     set: (attendance) => {
@@ -25,27 +25,24 @@ export default {
         AttendanceDTO.student = attendance.student
         AttendanceDTO.lecture = attendance.lecture
         AttendanceDTO.attended = attendance.attended
+
         AttendanceDTO._created_at = attendance._created_at
         AttendanceDTO._updated_at = attendance._updated_at
     },
 
-    addAll: (attendance) => {
-        AttendancesDTO.push({
+    addAll: (attendance) => AttendeesDTO.push({
             id: attendance.id,
             student: attendance.student,
             lecture: attendance.lecture,
             attended: attendance.attended,
+
             _created_at: attendance._created_at,
             _updated_at: attendance._updated_at,
-        })
-    },
+        }),
 
     get: () => AttendanceDTO,
 
-    getAll: () => AttendancesDTO,
+    getAll: () => AttendeesDTO,
 
-    clear: () => {
-        AttendancesDTO = []
-    }
+    clear: () => AttendeesDTO = [],
 }
-

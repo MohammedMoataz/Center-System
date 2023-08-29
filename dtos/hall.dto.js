@@ -1,4 +1,4 @@
-let HallDTO = {
+const HallDTO = {
     id: 0,
     code: null,
     cost: 0,
@@ -16,26 +16,24 @@ export default {
         HallDTO.code = hall.code
         HallDTO.cost = hall.cost
         HallDTO.capacity = hall.capacity
+
         HallDTO._created_at = hall._created_at
         HallDTO._updated_at = hall._updated_at
     },
 
-    addAll: (hall) => {
-        HallsDTO.push({
-            id: hall.id,
-            code: hall.code,
-            cost: hall.cost,
-            capacity: hall.capacity,
-            _created_at: hall._created_at,
-            _updated_at: hall._updated_at
-        })
-    },
+    addAll: (hall) => HallsDTO.push({
+        id: hall.id,
+        code: hall.code,
+        cost: hall.cost,
+        capacity: hall.capacity,
+
+        _created_at: hall._created_at,
+        _updated_at: hall._updated_at
+    }),
 
     get: () => HallDTO,
 
     getAll: () => HallsDTO,
 
-    clear: () => {
-        HallsDTO = []
-    }
+    clear: () => HallsDTO = [],
 }

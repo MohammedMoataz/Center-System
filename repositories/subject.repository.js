@@ -3,19 +3,19 @@ import { executeQuery } from "../config/db/db.js"
 export default {
     create: async (subject) => await executeQuery(`
         call center_system.insert_subject(
-            '${subject.code}', 
-            '${subject.name}', 
-            '${subject.level}', 
+            '${subject.code}',
+            '${subject.name}',
+            '${subject.level}',
             '${subject._created_at}'
         );
     `),
 
     updateById: async (subject) => await executeQuery(`
         call center_system.update_subject(
-            '${subject.id}', 
-            '${subject.code}', 
-            '${subject.name}', 
-            '${subject.level}', 
+            '${subject.id}',
+            '${subject.code}',
+            '${subject.name}',
+            '${subject.level}',
             '${subject._updated_at}'
         );
     `),

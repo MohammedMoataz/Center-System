@@ -2,7 +2,7 @@ const SubjectModel = {
     id: 0,
     code: null,
     name: null,
-    level: null,
+    level: 0,
 
     _created_at: null,
     _updated_at: null,

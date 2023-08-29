@@ -1,35 +1,35 @@
 import AdminService from '../services/admin.service.js'
 
 export const create = async (req, res) => {
-    const newAdmin = req.body
-    let response = await AdminService.create(newAdmin)
-
-    res.send({ data: response, message: "Success!" })
+    const new_admin = req.admin
+    AdminService.create(new_admin)
+        .then(data => res.send({ data, message: "Success!" }))
+        .catch(err => res.send({ message: err.message }))
 }
 
 export const updateById = async (req, res) => {
-    const updatedAdmin = req.body
-    let response = await AdminService.updateById(updatedAdmin)
-
-    res.send({ data: response, message: "Success!" })
+    const updated_admin = req.admin
+    AdminService.updateById(updated_admin)
+        .then(data => res.send({ data, message: "Success!" }))
+        .catch(err => res.send({ message: err.message }))
 }
 
 export const getById = async (req, res) => {
-    const adminId = req.query.id
-    let response = await AdminService.getById(adminId)
-
-    res.send({ data: response, message: "Success!" })
-}
-
-export const getAll = async (req, res) => {
-    let response = await AdminService.getAll()
-
-    res.send({ data: response, message: "Success!" })
+    const admin_d = req.query.id
+    AdminService.getById(admin_d)
+        .then(data => res.send({ data, message: "Success!" }))
+        .catch(err => res.send({ message: err.message }))
 }
 
 export const deleteById = async (req, res) => {
-    const adminId = req.query.id
-    let response = await AdminService.deleteById(adminId)
+    const admin_id = req.query.id
+    AdminService.deleteById(admin_id)
+        .then(data => res.send({ data, message: "Success!" }))
+        .catch(err => res.send({ message: err.message }))
+}
 
-    res.send({ data: response, message: "Success!" })
+export const getAll = async (req, res) => {
+    AdminService.getAll()
+        .then(data => res.send({ data, message: "Success!" }))
+        .catch(err => res.send({ message: err.message }))
 }

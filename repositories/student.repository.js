@@ -15,6 +15,14 @@ export default {
         );
     `),
 
+    addParent: async (parent) => await executeQuery(`
+        call center_system.insert_parent_no(
+            '${parent.s_id}', 
+            '${parent.parent_no}', 
+            '${parent.label}'
+        );
+    `),
+
     updateById: async (student) => await executeQuery(`
         call center_system.update_student(
             '${student.id}', 
@@ -30,13 +38,21 @@ export default {
         );
     `),
 
+    updateParent: async (parent) => await executeQuery(`
+        call center_system.update_parents_no(
+            '${parent.id}', 
+            '${parent.parent_no}', 
+            '${parent.label}'
+        );
+    `),
+
     getById: async (id) => await executeQuery(`
         call center_system.get_student(
             '${id}'
         );
     `),
 
-    getParentPhones: async (student_id) => await executeQuery(`
+    getParents: async (student_id) => await executeQuery(`
         call center_system.get_parents_no(
             '${student_id}'
         );
@@ -53,7 +69,7 @@ export default {
         );
     `),
 
-    deleteParentPhone: async () => await executeQuery(`
+    deleteParent: async (id, deleted_at) => await executeQuery(`
         call center_system.delete_parents_no(
             '${id}',
             '${deleted_at}'

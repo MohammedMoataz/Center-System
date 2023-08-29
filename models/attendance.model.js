@@ -6,6 +6,7 @@ const AttendanceModel = {
 
     _created_at: null,
     _updated_at: null,
+    _deleted_at: null,
 }
 
 export default {
@@ -17,8 +18,8 @@ export default {
 
         AttendanceModel._created_at = attendance._created_at
         AttendanceModel._updated_at = attendance._updated_at
+        AttendanceModel._deleted_at = attendance._deleted_at
     },
 
     get: () => AttendanceModel
 }
-

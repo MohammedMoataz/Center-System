@@ -14,4 +14,6 @@ export const generateUniqueData = (data) =>
 * @returns {String} a timestamp representing the datetime
 */
 export const handleTimestamp = (date) =>
-    `${date.replace('T', ' ').replace('Z', '')}`
+    date.toJSON()
+        .replace('T', ' ')
+        .replace('Z', '')

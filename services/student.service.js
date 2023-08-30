@@ -2,13 +2,12 @@ import StudentRepository from "../repositories/student.repository.js"
 import StudentDTO from "../dtos/student.dto.js"
 import StudentModel from "../models/student.model.js"
 import ParentModel from "../models/parent.model.js"
+import { generateUniqueData, getCurrentTimestamp } from "../common/helper.js"
 
 export default {
     create: async (student) => {
-        student._created_at = new Date(Date.now())
-            .toJSON()
-            .replace('T', ' ')
-            .replace('Z', '')
+        student._created_at = getCurrentTimestamp()
+        student.username = generateUniqueData(student.email)
         StudentModel.set(student)
 
         return StudentRepository.create(StudentModel.get())
@@ -25,10 +24,7 @@ export default {
     },
 
     updateById: async (student) => {
-        student._updated_at = new Date(Date.now())
-            .toJSON()
-            .replace('T', ' ')
-            .replace('Z', '')
+        student._updated_at = getCurrentTimestamp()
         StudentModel.set(student)
 
         return StudentRepository.updateById(StudentModel.get())
@@ -82,10 +78,7 @@ export default {
             .catch(console.error),
 
     deleteById: async (id) => {
-        let timestamp = new Date(Date.now())
-            .toJSON()
-            .replace('T', ' ')
-            .replace('Z', '')
+        let timestamp = getCurrentTimestamp()
 
         return StudentRepository.deleteById(id, timestamp)
             .then((data) => data[0])
@@ -93,10 +86,7 @@ export default {
     },
 
     deleteParent: async (parent_id) => {
-        let timestamp = new Date(Date.now())
-            .toJSON()
-            .replace('T', ' ')
-            .replace('Z', '')
+        let timestamp = getCurrentTimestamp()
 
         return StudentRepository.deleteParent(parent_id, timestamp)
             .then((data) => data[0])

@@ -82,6 +82,10 @@
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Teacher'
+ *       '401':
+ *         $ref: '#/components/responses/Unauthorized'
+ *       '404':
+ *         $ref: '#/components/responses/NotFound'
  *       '500':
  *         description: Some server error
  *
@@ -111,6 +115,10 @@
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Teacher'
+ *       '401':
+ *         $ref: '#/components/responses/Unauthorized'
+ *       '404':
+ *         $ref: '#/components/responses/NotFound'
  *       '500':
  *         description: Some server error
  * 
@@ -132,6 +140,10 @@
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Teacher'
+ *       '401':
+ *         $ref: '#/components/responses/Unauthorized'
+ *       '404':
+ *         $ref: '#/components/responses/NotFound'
  *       '500':
  *         description: Some server error
  * 
@@ -147,8 +159,12 @@
  *         required: true
  *         type: int
  *     responses:
- *       '200':
+ *       '204':
  *         description: Teacher deleted successfully
+ *       '401':
+ *         $ref: '#/components/responses/Unauthorized'
+ *       '404':
+ *         $ref: '#/components/responses/NotFound'
  *       '500':
  *         description: Some server error
  * 
@@ -168,6 +184,10 @@
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Teacher'
+ *       '401':
+ *         $ref: '#/components/responses/Unauthorized'
+ *       '404':
+ *         $ref: '#/components/responses/NotFound'
  *       '500':
  *         description: Some server error
  * 

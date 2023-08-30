@@ -1,13 +1,11 @@
 import AdminRepository from "../repositories/admin.repository.js"
 import AdminDTO from "../dtos/admin.dto.js"
 import AdminModel from "../models/admin.model.js"
+import { getCurrentTimestamp } from "../common/helper.js"
 
 export default {
     create: async (admin) => {
-        admin._created_at = new Date(Date.now())
-            .toJSON()
-            .replace('T', ' ')
-            .replace('Z', '')
+        admin._created_at = getCurrentTimestamp()
         AdminModel.set(admin)
 
         return AdminRepository.create(AdminModel.get())
@@ -16,10 +14,7 @@ export default {
     },
 
     updateById: async (admin) => {
-        admin._updated_at = new Date(Date.now())
-            .toJSON()
-            .replace('T', ' ')
-            .replace('Z', '')
+        admin._updated_at = getCurrentTimestamp()
         AdminModel.set(admin)
 
         return AdminRepository.updateById(AdminModel.get())
@@ -31,7 +26,7 @@ export default {
         AdminRepository.getById(id)
             .then((data) => {
                 AdminDTO.set(data[0][0][0])
-                
+
                 return AdminDTO.get()
             })
             .catch(console.error),
@@ -51,10 +46,7 @@ export default {
             .catch(console.error),
 
     deleteById: async (id) => {
-        let timestamp = new Date(Date.now())
-            .toJSON()
-            .replace('T', ' ')
-            .replace('Z', '')
+        let timestamp = getCurrentTimestamp()
 
         return AdminRepository.deleteById(id, timestamp)
             .then((data) => data[0])

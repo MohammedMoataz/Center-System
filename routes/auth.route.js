@@ -34,19 +34,6 @@
  *             $ref: '#/components/schemas/Error' 
  * 
  *   schemas:
- *     SuccessResponse:
- *       type: object
- *       properties:
- *         success:
- *           type: boolean
- *           description: Whether the request was successful.
- *           example: "This is the response data."
- *     ErrorResponse:
- *       type: object
- *       properties:
- *         error:
- *           type: stringF
- *           description: The error message.
  *     Error:
  *       type: object
  *       properties:
@@ -57,39 +44,7 @@
  *       required:
  *         - code
  *         - message
- * 
- * 
- * 200:
- *   description: OK
- *   schema:
- *     $ref: '#/definitions/SuccessResponse'
- * '401':
- *   description: Unauthorized
- *   schema:
- *     $ref: '#/definitions/ErrorResponse'
- *     properties:
- *       error:
- *         type: string
- *         description: The error message.
- *         example: "You are not authorized to access this resource."
- * '404':
- *   description: Not Found
- *   schema:
- *     $ref: '#/definitions/ErrorResponse'
- *     properties:
- *       error:
- *         type: string
- *         description: The error message.
- *         example: "The resource you are looking for could not be found."
- * '500':
- *   description: Internal Server Error
- *   schema:
- *     $ref: '#/definitions/ErrorResponse'
- *     properties:
- *       error:
- *         type: string
- *         description: The error message.
- *         example: "An internal server error occurred."
+ 
  */
 /**
  * @swagger

@@ -4,10 +4,10 @@ export default (req, res, next) => {
     const authHeader = req.header('Authorization')
     const token = authHeader && authHeader.split(' ')[1]
 
-    if (token == null) return res.status(401)
+    if (token == null) return res.status(401).send("Unauthorized")
 
     verifyToken(token, (err, admin) => {
-        if (err) return res.status(403)
+        if (err) return res.status(403).send("Forbidden")
 
         req.admin = admin
         console.log({ admin })

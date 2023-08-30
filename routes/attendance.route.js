@@ -96,6 +96,12 @@
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Attendance'
+ *       '401':
+ *         $ref: '#/components/responses/Unauthorized'
+ *       '404':
+ *         $ref: '#/components/responses/NotFound'
+ *       '500':
+ *         description: Some server error
  * 
  *   put:
  *     summary: Update an attendance record
@@ -122,12 +128,18 @@
  *                 type: boolean
  *                 description: Whether or not the student attended the lecture.
  *     responses:
- *       200:
+ *       201:
  *         description: OK
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Attendance'
+ *       '401':
+ *         $ref: '#/components/responses/Unauthorized'
+ *       '404':
+ *         $ref: '#/components/responses/NotFound'
+ *       '500':
+ *         description: Some server error
  * 
  *   get:
  *     summary: Get all attendance records
@@ -144,6 +156,12 @@
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Attendance'
+ *       '401':
+ *         $ref: '#/components/responses/Unauthorized'
+ *       '404':
+ *         $ref: '#/components/responses/NotFound'
+ *       '500':
+ *         description: Some server error
  */
 
 import { Router } from "express"

@@ -2,13 +2,11 @@ import TeacherRepository from '../repositories/teacher.repository.js'
 import TeacherDTO from '../dtos/teacher.dto.js'
 import TeacherModel from '../models/teacher.model.js'
 import TeacherPhoneModel from '../models/teacher_phone.model.js'
+import { getCurrentTimestamp } from '../common/helper.js'
 
 export default {
     create: async (teacher) => {
-        teacher._created_at = new Date(Date.now())
-            .toJSON()
-            .replace('T', ' ')
-            .replace('Z', '')
+        teacher._created_at = getCurrentTimestamp()
         TeacherModel.set(teacher)
 
         return TeacherRepository.create(TeacherModel.get())
@@ -25,10 +23,7 @@ export default {
     },
 
     updateById: async (teacher) => {
-        teacher._updated_at = new Date(Date.now())
-            .toJSON()
-            .replace('T', ' ')
-            .replace('Z', '')
+        teacher._updated_at = getCurrentTimestamp()
         TeacherModel.set(teacher)
 
         return TeacherRepository.updateById(TeacherModel.get())
@@ -82,10 +77,7 @@ export default {
             .catch(console.error),
 
     deleteById: async (id) => {
-        let timestamp = new Date(Date.now())
-            .toJSON()
-            .replace('T', ' ')
-            .replace('Z', '')
+        let timestamp = getCurrentTimestamp()
 
         return TeacherRepository.deleteById(id, timestamp)
             .then((data) => data[0])
@@ -93,10 +85,7 @@ export default {
     },
 
     deletePhone: async (id) => {
-        let timestamp = new Date(Date.now())
-            .toJSON()
-            .replace('T', ' ')
-            .replace('Z', '')
+        let timestamp = getCurrentTimestamp()
 
         return TeacherRepository.deletePhone(id, timestamp)
             .then((data) => data[0])

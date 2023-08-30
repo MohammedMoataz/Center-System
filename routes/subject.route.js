@@ -63,6 +63,10 @@
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Subject'
+ *       '401':
+ *         $ref: '#/components/responses/Unauthorized'
+ *       '404':
+ *         $ref: '#/components/responses/NotFound'
  *       '500':
  *         description: Some server error
  *
@@ -87,12 +91,16 @@
  *               minimum: 1
  *               required: true
  *     responses:
- *       '200':
+ *       '201':
  *         description: Subject updated successfully
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Subject'
+ *       '401':
+ *         $ref: '#/components/responses/Unauthorized'
+ *       '404':
+ *         $ref: '#/components/responses/NotFound'
  *       '500':
  *         description: Some server error
  * 
@@ -114,6 +122,10 @@
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Subject'
+ *       '401':
+ *         $ref: '#/components/responses/Unauthorized'
+ *       '404':
+ *         $ref: '#/components/responses/NotFound'
  *       '500':
  *         description: Some server error
  * 
@@ -129,8 +141,12 @@
  *         required: true
  *         type: int
  *     responses:
- *       '200':
+ *       '204':
  *         description: Subject deleted successfully
+ *       '401':
+ *         $ref: '#/components/responses/Unauthorized'
+ *       '404':
+ *         $ref: '#/components/responses/NotFound'
  *       '500':
  *         description: Some server error
  * 
@@ -150,6 +166,10 @@
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Subject'
+ *       '401':
+ *         $ref: '#/components/responses/Unauthorized'
+ *       '404':
+ *         $ref: '#/components/responses/NotFound'
  *       '500':
  *         description: Some server error
  */

@@ -1,13 +1,11 @@
 import HallRepository from "../repositories/hall.repository.js"
 import HallDTO from "../dtos/hall.dto.js"
 import HallModel from "../models/hall.model.js"
+import { getCurrentTimestamp } from "../common/helper.js"
 
 export default {
     create: async (hall) => {
-        hall._created_at = new Date(Date.now())
-            .toJSON()
-            .replace('T', ' ')
-            .replace('Z', '')
+        hall._created_at = getCurrentTimestamp()
         HallModel.set(hall)
 
         return HallRepository.create(HallModel.get())
@@ -16,10 +14,7 @@ export default {
     },
 
     updateById: async (hall) => {
-        hall._updated_at = new Date(Date.now())
-            .toJSON()
-            .replace('T', ' ')
-            .replace('Z', '')
+        hall._updated_at = getCurrentTimestamp()
         HallModel.set(hall)
 
         return HallRepository.updateById(HallModel.get())
@@ -51,10 +46,7 @@ export default {
             .catch(console.error),
 
     deleteById: async (id) => {
-        let timestamp = new Date(Date.now())
-            .toJSON()
-            .replace('T', ' ')
-            .replace('Z', '')
+        let timestamp = getCurrentTimestamp()
 
         return HallRepository.deleteById(id, timestamp)
             .then((data) => data[0])

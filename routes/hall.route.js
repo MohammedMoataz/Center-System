@@ -109,6 +109,10 @@
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Hall'
+ *       '401':
+ *         $ref: '#/components/responses/Unauthorized'
+ *       '404':
+ *         $ref: '#/components/responses/NotFound'
  *       '500':
  *         description: Some server error
  * 
@@ -124,8 +128,12 @@
  *         required: true
  *         type: integer
  *     responses:
- *       '200':
+ *       '204':
  *         description: Hall deleted successfully
+ *       '401':
+ *         $ref: '#/components/responses/Unauthorized'
+ *       '404':
+ *         $ref: '#/components/responses/NotFound'
  *       '500':
  *         description: Some server error
  * 
@@ -145,6 +153,10 @@
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Hall'
+ *       '401':
+ *         $ref: '#/components/responses/Unauthorized'
+ *       '404':
+ *         $ref: '#/components/responses/NotFound'
  *       '500':
  *         description: Some server error
  */

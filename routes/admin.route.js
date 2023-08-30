@@ -133,7 +133,7 @@
  *           schema:
  *             $ref: '#/components/schemas/Admin'
  *     responses:
- *       '200':
+ *       '201':
  *         description: Admin updated successfully
  *         content:
  *           application/json:
@@ -190,7 +190,7 @@
  *         required: true
  *         type: integer
  *     responses:
- *       '200':
+ *       '204':
  *         description: Admin deleted successfully
  *       '401':
  *         $ref: '#/components/responses/Unauthorized'

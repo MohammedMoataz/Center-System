@@ -22,10 +22,10 @@ export const adminLogin = async (req, res) => {
             const refresh_token = generateRefreshToken({ email: admin.email, password: admin.password })
 
             AuthService.updateAdminToken(admin.id, refresh_token)
-                .then(() => res.send({ data: { access_token, refresh_token }, message: "Successfully logged in" }))
-                .catch(console.error)
+                .then(() => res.status(200).send({ data: { access_token, refresh_token }, message: "Successfully logged in" }))
+                .catch(err => res.send({ message: err.message }))
         })
-        .catch(res.status(404))
+        .catch(res.status(404).send("Not Found"))
 }
 
 export const login = async (req, res) => {
@@ -37,16 +37,16 @@ export const login = async (req, res) => {
             const refresh_token = generateRefreshToken({ username: student.username, password: student.password })
 
             AuthService.updateStudentToken(student.id, refresh_token)
-                .then(() => res.send({ data: { access_token, refresh_token }, message: "Successfully logged in" }))
-                .catch(console.error)
+                .then(() => res.status(200).send({ data: { access_token, refresh_token }, message: "Successfully logged in" }))
+                .catch(err => res.send({ message: err.message }))
         })
-        .catch(res.status(404))
+        .catch(res.status(404).send("Not Found"))
 }
 
 export const register = async (req, res) => {
     const new_student = req.body
     StudentService.create(new_student)
-        .then(data => res.send({ data, message: "Success!" }))
+        .then(data => res.status(201).send({ data, message: "Created Successfully" }))
         .catch(err => res.send({ message: err.message }))
 }
 
@@ -54,74 +54,74 @@ export const refreshAdminToken = async (req, res) => {
     const refresh_token = req.body.token
 
     // If the refresh token is invalid
-    if (!refresh_token) return res.status(401)
+    if (!refresh_token) return res.status(401).send({ message: 'Invalid refresh token' })
 
     // If the refresh token not in the database
     AuthService.getAdminToken(refresh_token)
         .then(() => {
             verifyRefreshToken(refresh_token, (err, admin) => {
-                if (err) return res.status(403)
+                if (err) return res.status(403).send(`${err.message}`)
 
                 console.log({ admin })
                 const access_token = generateAccessToken({ email: admin.email })
 
-                res.send({ access_token })
+                res.status(200).send({ access_token })
             })
         })
-        .catch(res.status(403))
+        .catch(res.status(403).send("Forbidden"))
 }
 
 export const refreshStudentToken = async (req, res) => {
     const refresh_token = req.body.token
 
     // If the refresh token is invalid
-    if (!refresh_token) return res.status(401)
+    if (!refresh_token) return res.status(401).send({ message: 'Invalid refresh token' })
 
     // If the refresh token not in the database
     AuthService.getStudentToken(refresh_token)
         .then(() => {
             verifyRefreshToken(refresh_token, (err, student) => {
-                if (err) return res.status(403)
+                if (err) return res.status(403).send(`${err.message}`)
 
                 console.log({ student })
                 const access_token = generateAccessToken({ email: student.email, password: student.password })
 
-                res.send({ access_token })
+                res.status(200).send({ access_token })
             })
         })
-        .catch(res.status(403))
+        .catch(res.status(403).send("Forbidden"))
 }
 
 export const adminLogout = async (req, res) => {
     const refresh_token = req.body.token
 
     // If the refresh token is invalid
-    if (!refresh_token) return res.status(401)
+    if (!refresh_token) return res.status(401).send({ message: 'Invalid refresh token' })
 
     AuthService.deleteAdminToken(refresh_token)
         .then(() => {
             verifyRefreshToken(refresh_token, (err, admin) => {
-                if (err) return res.status(403)
+                if (err) return res.status(403).send(`${err.message}`)
 
-                res.status(204)
+                res.status(204).send("Logged out successfully")
             })
         })
-        .catch(res.status(403))
+        .catch(res.status(403).send('Forbidden'))
 }
 
 export const studentLogout = async (req, res) => {
     const refresh_token = req.body.token
 
     // If the refresh token is invalid
-    if (!refresh_token) return res.status(401)
+    if (!refresh_token) return res.status(401).send({ message: 'Invalid refresh token' })
 
     AuthService.deleteStudentToken(refresh_token)
         .then(() => {
             verifyRefreshToken(refresh_token, (err, student) => {
-                if (err) return res.status(403)
+                if (err) return res.status(403).send(`${err.message}`)
 
-                res.status(204)
+                res.status(204).send("Logged out successfully")
             })
         })
-        .catch(res.status(403))
+        .catch(res.status(403).send('Forbidden'))
 }

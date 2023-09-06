@@ -1,4 +1,6 @@
 import AttendanceRepository from "../repositories/attendance.repository.js"
+import StudentRepository from "../repositories/student.repository.js"
+import LectureRepository from "../repositories/lecture.repository.js"
 import AttendanceDTO from "../dtos/attendance.dto.js"
 import AttendanceModel from "../models/attendance.model.js"
 import { getCurrentTimestamp } from "../common/helper.js"
@@ -6,11 +8,12 @@ import { getCurrentTimestamp } from "../common/helper.js"
 export default {
     create: async (attendance) => {
         attendance._created_at = getCurrentTimestamp()
+        attendance.attended = attendance.attended ? 1 : 0
         AttendanceModel.set(attendance)
 
         return AttendanceRepository.create(AttendanceModel.get())
-            .then((data) => data[0][0][0])
-            .catch(console.error)
+            .then((data) => data[0])
+            .catch(err => { throw Error(err.message) })
     },
 
     updateById: async (attendance) => {
@@ -19,48 +22,48 @@ export default {
 
         return AttendanceRepository.updateById(AttendanceModel.get())
             .then((data) => data[0])
-            .catch(console.error)
+            .catch(err => { throw Error(err.message) })
     },
 
-    getAll: async () =>
-        AttendanceRepository.getAll()
+    getAll: async () => {
+        return AttendanceRepository.getAll()
             .then((data) => {
-                Array.from(data[0][0])
-                    .forEach(attendance => AttendanceDTO.addAll(attendance))
-                    
-                return AttendanceDTO.getAll()
-            })
-            .then((data) => {
-                AttendanceDTO.clear()
-                return data
-            })
-            .catch(console.error),
+                let attendees = {}
+                data[0][0].map(record => {
+                    if (!attendees[`${record.a_id}`])
+                        attendees[`${record.a_id}`] = AttendanceDTO.from(record)
+                })
 
-    getLectureAttendees: async (lecture_id) =>
-        AttendanceRepository.getLectureAttendees(lecture_id)
-            .then((data) => {
-                Array.from(data[0][0])
-                    .forEach(attendance => AttendanceDTO.addAll(attendance))
+                return attendees
+            })
+            .catch(err => { throw Error(err.message) })
+    },
 
-                return AttendanceDTO.getAll()
-            })
+    getLectureAttendees: async (lecture_id) => {
+        return AttendanceRepository.getLectureAttendees(lecture_id)
             .then((data) => {
-                AttendanceDTO.clear()
-                return data
-            })
-            .catch(console.error),
+                let attendees = {}
+                data[0][0].map(record => {
+                    if (!attendees[`${record.a_id}`])
+                        attendees[`${record.a_id}`] = AttendanceDTO.from(record)
+                })
 
-    getStudentAttendees: async (student_id) =>
-        AttendanceRepository.getStudentAttendees(student_id)
-            .then((data) => {
-                Array.from(data[0][0])
-                    .forEach(attendance => AttendanceDTO.addAll(attendance))
+                return attendees
+            })
+            .catch(err => { throw Error(err.message) })
+    },
 
-                return AttendanceDTO.getAll()
-            })
+    getStudentAttendees: async (student_id) => {
+        return AttendanceRepository.getStudentAttendees(student_id)
             .then((data) => {
-                AttendanceDTO.clear()
-                return data
+                let attendees = {}
+                data[0][0].map(record => {
+                    if (!attendees[`${record.a_id}`])
+                        attendees[`${record.a_id}`] = AttendanceDTO.from(record)
+                })
+
+                return attendees
             })
-            .catch(console.error),
+            .catch(err => { throw Error(err.message) })
+    },
 }

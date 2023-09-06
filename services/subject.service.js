@@ -10,7 +10,7 @@ export default {
 
         return SubjectRepository.create(SubjectModel.get())
             .then((data) => data[0][0][0])
-            .catch(console.error)
+            .catch(err => { throw Error(err.message) })
     },
 
     updateById: async (subject) => {
@@ -19,20 +19,21 @@ export default {
 
         return SubjectRepository.updateById(SubjectModel.get())
             .then((data) => data[0])
-            .catch(console.error)
+            .catch(err => { throw Error(err.message) })
     },
 
-    getById: async (id) =>
-        SubjectRepository.getById(id)
+    getById: async (id) => {
+        return SubjectRepository.getById(id)
             .then((data) => {
                 SubjectDTO.set(data[0][0][0])
 
                 return SubjectDTO.get()
             })
-            .catch(console.error),
+            .catch(err => { throw Error(err.message) })
+    },
 
-    getAll: async () =>
-        SubjectRepository.getAll()
+    getAll: async () => {
+        return SubjectRepository.getAll()
             .then((data) => {
                 Array.from(data[0][0])
                     .forEach(subject => SubjectDTO.addAll(subject))
@@ -43,13 +44,14 @@ export default {
                 SubjectDTO.clear()
                 return data
             })
-            .catch(console.error),
+            .catch(err => { throw Error(err.message) })
+    },
 
     deleteById: async (id) => {
         let timestamp = getCurrentTimestamp()
 
         return SubjectRepository.deleteById(id, timestamp)
             .then((data) => data[0])
-            .catch(console.error)
+            .catch(err => { throw Error(err.message) })
     },
 }

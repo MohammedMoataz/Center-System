@@ -13,7 +13,6 @@ export default {
     updateById: async (hall) => await executeQuery(`
         call center_system.update_hall(
             '${hall.id}', 
-            '${hall.code}', 
             '${hall.cost}', 
             '${hall.capacity}', 
             '${hall._updated_at}'

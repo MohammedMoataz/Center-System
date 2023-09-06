@@ -11,24 +11,25 @@ const SALT_ROUNDS = process.env.SALT_ROUNDS
 /**
  * 
  * @param {Object} payload The payload to be encrypted.
- * @param {Number} SALT_ROUNDS The salt to be used in encryption. If specified as a number then a
+ * @param {Number} SALT_ROUNDS The salt to be used in encryption.
+ * @param {Function} callback The function to be called when the encrypted payload has been successfully
  * salt will be generated with the specified number of rounds and used.
- *
- * @returns {String} The encrypted payload
+ * 
  */
-export const hash = (payload) =>
-    bcrypt.genSalt(SALT_ROUNDS, async (err, salt) =>
-        bcrypt.hash(payload, salt, async (err, hash) => hash))
+export const hash = async (payload, callback) =>
+    bcrypt.genSalt(parseInt(SALT_ROUNDS), async (err, salt) =>
+        bcrypt.hash(payload, salt, callback))
 
 /**
  * 
  * @param {Object} data The data to be hashed.
  * @param {String} hash The data to be compared against.
+ * @param {Function} callback The callback to be called when the data is compared against the hash
  * 
  * @returns {Boolean} if that hash relevant to the data or not
  */
-export const compareHashedData = (data, hash) =>
-    awaitbcrypt.compare(data, hash, async (err, result) => result)
+export const compareHashedData = (data, hash, callback) =>
+    bcrypt.compare(data, hash, callback)
 
 /**
  * Synchronously sign the given payload into a JSON Web Token string

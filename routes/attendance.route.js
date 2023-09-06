@@ -49,6 +49,7 @@
  *               type: string
  *               format: date-time
  *               description: The date and time of the lecture.
+ *               example: '2012-12-12 22:30:09'
  *         attended:
  *           type: boolean
  *           description: Whether or not the student attended the lecture.
@@ -86,7 +87,7 @@
  *                 type: integer
  *                 minimum: 1
  *                 description: The ID of the student.
- *               attendee:
+ *               attended:
  *                 type: boolean
  *                 description: Whether or not the student attended the lecture.
  *     responses:
@@ -124,7 +125,7 @@
  *                 type: integer
  *                 minimum: 1
  *                 description: The ID of the student.
- *               attendee:
+ *               attended:
  *                 type: boolean
  *                 description: Whether or not the student attended the lecture.
  *     responses:
@@ -142,10 +143,10 @@
  *         description: Some server error
  * 
  *   get:
- *     summary: Get all attendance records
+ *     summary: Get all attendees records
  *     security:
  *       - bearerAuth: []
- *     operationId: getAllAttendance
+ *     operationId: getAllAttendees
  *     tags: [Attendance Routes]
  *     responses:
  *       200:
@@ -168,8 +169,8 @@ import { Router } from "express"
 
 import {
   create,
-  getAll,
   updateById,
+  getAll,
 } from "../controllers/attendance.controller.js"
 import AdminMiddleware from "../middlewares/admin.middleware.js"
 

@@ -4,6 +4,7 @@ export default {
     create: async (subject) => await executeQuery(`
         call center_system.insert_subject(
             '${subject.code}',
+            '${subject.cost}',
             '${subject.name}',
             '${subject.level}',
             '${subject._created_at}'
@@ -13,7 +14,7 @@ export default {
     updateById: async (subject) => await executeQuery(`
         call center_system.update_subject(
             '${subject.id}',
-            '${subject.code}',
+            '${subject.cost}',
             '${subject.name}',
             '${subject.level}',
             '${subject._updated_at}'

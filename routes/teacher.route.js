@@ -20,7 +20,7 @@
  *         last_name:
  *           type: string
  *           description: The last name of the teacher
- *         phones_numbers:
+ *         phones:
  *           type: array
  *           items:
  *             $ref: '#/components/schemas/Phone'
@@ -46,10 +46,10 @@
  *       required:
  *         - phone_number
  *       properties:
- *         id:
+ *         teacher_id:
  *           type: integer
  *           minimum: 1
- *           description: The ID of the teacher's phone
+ *           description: The ID of the teacher
  *         phone_number:
  *           type: string
  *           pattern: '^\d{4}-\d{3}-\d{4}$'
@@ -90,7 +90,7 @@
  *         description: Some server error
  *
  *   put:
- *     summary: Update an teacher by ID
+ *     summary: Update a teacher by ID
  *     security:
  *       - bearerAuth: []
  *     tags: [Teacher Routes]
@@ -123,7 +123,7 @@
  *         description: Some server error
  * 
  *   get:
- *     summary: Get an teacher by ID
+ *     summary: Get a teacher by ID
  *     security:
  *       - bearerAuth: []
  *     tags: [Teacher Routes]
@@ -148,7 +148,7 @@
  *         description: Some server error
  * 
  *   delete:
- *     summary: Delete an teacher by ID
+ *     summary: Delete a teacher by ID
  *     security:
  *       - bearerAuth: []
  *     tags: [Teacher Routes]
@@ -174,7 +174,7 @@
  *     security:
  *       - bearerAuth: []
  *     tags: [Teacher Routes]
- *     operationId: getAllTeacher
+ *     operationId: getAllTeachers
  *     responses:
  *       '200':
  *         description: Teachers retrieved successfully
@@ -190,7 +190,6 @@
  *         $ref: '#/components/responses/NotFound'
  *       '500':
  *         description: Some server error
- * 
  * 
  * /teacher/phone:
  *   post:
@@ -231,11 +230,6 @@
  *         application/json:
  *           schema:
  *             $ref: '#/components/schemas/Phone'
- *     parameters:
- *       - name: phone_id
- *         in: query
- *         required: true
- *         type: integer
  *     responses:
  *       '200':
  *         description: Teacher's phone updated successfully
@@ -270,7 +264,12 @@
  *     security:
  *       - bearerAuth: []
  *     tags: [Teacher Routes]
- *     operationId: getAllTeachersPhones
+ *     operationId: getAllTeacherPhones
+ *     parameters:
+ *       - name: teacher_id
+ *         in: query
+ *         required: true
+ *         type: integer
  *     responses:
  *       '200':
  *         description: Teachers phones retrieved successfully
@@ -279,7 +278,7 @@
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/ParPhoneent'
+ *                 $ref: '#/components/schemas/Phone'
  *       '500':
  *         description: Some server error
  */
@@ -295,7 +294,7 @@ import {
     addPhone,
     updatePhone,
     getPhones,
-    deletePhone
+    deletePhone,
 } from "../controllers/teacher.controller.js"
 import AdminMiddleware from "../middlewares/admin.middleware.js"
 

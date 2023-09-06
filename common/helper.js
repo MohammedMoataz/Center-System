@@ -1,11 +1,24 @@
 /**
  * 
- * @param {Object} data The data to be uniqe
+ * @param {Object} email The email to be uniqe
  * 
- * @returns {String} a unique and new string from the passed data
+ * @returns {String} a unique and new string from the passed email
  */
-export const generateUniqueData = (data) =>
-    `${data}+${Date.now()}`
+export const generateUniqueUsername = (email) => {
+    const key = new Date(Date.now())
+        .toJSON()
+        .replace('T', ' ')
+        .replace('Z', '')
+        .split(' ')
+
+    let count = 0
+    key[0].split('-').forEach(d => count += parseInt(d))
+    key[1].split(':').forEach(d => count += parseFloat(d))
+
+    count %= 100
+    let remind = count.toLocaleString().split('.')[1]
+    return `${email.split('@')[0]}${count.toFixed() + remind}`
+}
 
 /**
 * 
@@ -18,3 +31,11 @@ export const getCurrentTimestamp = () =>
         .toJSON()
         .replace('T', ' ')
         .replace('Z', '')
+
+/**
+ * 
+ * @param {String} phone_number The phone number need to be formatted
+ * @returns a new formatted string suitable for database
+ */
+export const getPhoneNumber = (phone_number) =>
+    phone_number.replaceAll('-', '')

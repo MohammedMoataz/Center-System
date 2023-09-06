@@ -21,17 +21,17 @@ export default {
     `),
 
     getAll: async () => await executeQuery(`
-        call center_system.get_all_attendees();
+        call center_system.get_all_attendees_details();
     `),
 
     getLectureAttendees: async (lecture_id) => await executeQuery(`
-        call center_system.get_lecture_attendees(
+        call center_system.get_lecture_attendees_details(
             '${lecture_id}'
         );
     `),
 
     getStudentAttendees: async (student_id) => await executeQuery(`
-        call center_system.get_student_attendees(
+        call center_system.get_student_attendees_details(
             '${student_id}'
         );
     `),

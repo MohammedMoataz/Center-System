@@ -1,8 +1,8 @@
 import TeacherRepository from '../repositories/teacher.repository.js'
 import TeacherDTO from '../dtos/teacher.dto.js'
 import TeacherModel from '../models/teacher.model.js'
-import TeacherPhoneModel from '../models/teacher_phone.model.js'
-import { getCurrentTimestamp } from '../common/helper.js'
+import PhoneModel from '../models/phone.model.js'
+import { getCurrentTimestamp, getPhoneNumber } from '../common/helper.js'
 
 export default {
     create: async (teacher) => {
@@ -10,16 +10,29 @@ export default {
         TeacherModel.set(teacher)
 
         return TeacherRepository.create(TeacherModel.get())
-            .then((data) => data[0][0][0])
-            .catch(console.error)
+            .then((data) => {
+                data = data[0][0][0]
+
+                Array.from(teacher.phones).forEach(async (phone) => {
+                    phone.teacher_id = data.id
+                    phone.phone_number = getPhoneNumber(phone.phone_number)
+                    PhoneModel.set(phone)
+
+                    return TeacherRepository.addPhone(PhoneModel.get())
+                        .then((data) => data[0])
+                        .catch(err => { throw Error(err.message) })
+                })
+            })
+            .catch(err => { throw Error(err.message) })
     },
 
     addPhone: async (phone) => {
-        TeacherPhoneModel.set(phone)
+        phone.phone_number = getPhoneNumber(phone.phone_number)
+        PhoneModel.set(phone)
 
-        return TeacherRepository.create(TeacherPhoneModel.get())
-            .then((data) => data[0][0][0])
-            .catch(console.error)
+        return TeacherRepository.addPhone(PhoneModel.get())
+            .then((data) => data[0])
+            .catch(err => { throw Error(err.message) })
     },
 
     updateById: async (teacher) => {
@@ -28,28 +41,36 @@ export default {
 
         return TeacherRepository.updateById(TeacherModel.get())
             .then((data) => data[0])
-            .catch(console.error)
+            .catch(err => { throw Error(err.message) })
     },
 
     updatePhone: async (phone) => {
-        TeacherPhoneModel.set(phone)
+        phone.phone_number = getPhoneNumber(phone.phone_number)
+        PhoneModel.set(phone)
 
-        return TeacherRepository.updatePhone(TeacherPhoneModel.get())
+        return TeacherRepository.updatePhone(PhoneModel.get())
             .then((data) => data[0])
-            .catch(console.error)
+            .catch(err => { throw Error(err.message) })
     },
 
-    getById: async (id) =>
-        TeacherRepository.getById(id)
+    getById: async (id) => {
+        return TeacherRepository.getById(id)
             .then((data) => {
-                TeacherDTO.set(data[0][0][0])
+                let teacher = {}
+                data[0][0].map(record => {
+                    if (!teacher[`${record.t_id}`])
+                        teacher[`${record.t_id}`] = TeacherDTO.from(record)
 
-                return TeacherDTO.get()
+                    teacher[`${record.t_id}`].phones.push(record.phone_no)
+                })
+
+                return teacher
             })
-            .catch(console.error),
+            .catch(err => { throw Error(err.message) })
+    },
 
-    getPhones: async (teacher_id) =>
-        TeacherRepository.getPhones(teacher_id)
+    getPhones: async (teacher_id) => {
+        return TeacherRepository.getPhones(teacher_id)
             .then((data) => {
                 Array.from(data[0][0])
                     .forEach(phone => TeacherDTO.addPhones(phone))
@@ -60,28 +81,31 @@ export default {
                 TeacherDTO.clearPhones()
                 return data
             })
-            .catch(console.error),
+            .catch(err => { throw Error(err.message) })
+    },
 
-    getAll: async () =>
-        TeacherRepository.getAll()
+    getAll: async () => {
+        return TeacherRepository.getAll()
             .then((data) => {
-                Array.from(data[0][0])
-                    .forEach(teacher => TeacherDTO.addAll(teacher))
+                let teachers = {}
+                data[0][0].map(record => {
+                    if (!teachers[`${record.t_id}`])
+                        teachers[`${record.t_id}`] = TeacherDTO.from(record)
 
-                return TeacherDTO.getAll()
+                    teachers[`${record.t_id}`].phones.push(record.phone_no)
+                })
+
+                return teachers
             })
-            .then((data) => {
-                TeacherDTO.clear()
-                return data
-            })
-            .catch(console.error),
+            .catch(err => { throw Error(err.message) })
+    },
 
     deleteById: async (id) => {
         let timestamp = getCurrentTimestamp()
 
         return TeacherRepository.deleteById(id, timestamp)
             .then((data) => data[0])
-            .catch(console.error)
+            .catch(err => { throw Error(err.message) })
     },
 
     deletePhone: async (id) => {
@@ -89,6 +113,6 @@ export default {
 
         return TeacherRepository.deletePhone(id, timestamp)
             .then((data) => data[0])
-            .catch(console.error)
+            .catch(err => { throw Error(err.message) })
     },
 }

@@ -12,7 +12,6 @@
  *         - subject_id
  *         - teacher_id
  *         - hall_id
- *         - admin_id
  *       properties:
  *         id:
  *           type: integer
@@ -23,7 +22,8 @@
  *         timestamp:
  *           type: string
  *           format: date-time
- *           description: The date and time of the lecture
+ *           description: Timestamp when the student was created
+ *           example: '2012-12-12 22:30:09'
  *         cost:
  *           type: integer
  *           minimum: 1
@@ -67,25 +67,11 @@
  *             code:
  *               type: string
  *               description: The code of the hall.
- *         admin:
- *           description: The admin who added the lecture.
- *           type: object
- *           properties:
- *             id:
- *               type: integer
- *               minimum: 1
- *               description: The ID of the admin.
- *             first_name:
- *               type: string
- *               description: The first name of the admin.
- *             last_name:
- *               type: string
- *               description: The second name of the admin.
  *         _created_at:
  *           type: string
  *           format: date-time
  *           readOnly: true
- *           description: Timestamp when the lecture was created
+ *           description: Timestamp when the student was created
  *         _updated_at:
  *           type: string
  *           format: date-time
@@ -97,7 +83,7 @@
  * 
  * /lecture:
  *   post:
- *     summary: Create an lecture
+ *     summary: Create a lecture
  *     security:
  *       - bearerAuth: []
  *     tags: [Lecture Routes]
@@ -154,7 +140,7 @@
  *         description: Some server error
  *
  *   put:
- *     summary: Update an lecture by ID
+ *     summary: Update a lecture by ID
  *     security:
  *       - bearerAuth: []
  *     tags: [Lecture Routes]
@@ -178,7 +164,8 @@
  *                 description: The QR code string of the lecture
  *               timestamp:
  *                 type: string
- *                 format: date - time
+ *                 format: date-time
+ *                 example: '2012-12-12 22:30:09'
  *                 description: The date and time of the lecture
  *               cost:
  *                 type: integer
@@ -211,7 +198,7 @@
  *         description: Some server error
  * 
  *   get:
- *     summary: Get an lecture by ID
+ *     summary: Get a lecture by ID
  *     security:
  *       - bearerAuth: []
  *     tags: [Lecture Routes]
@@ -236,7 +223,7 @@
  *         description: Some server error
  * 
  *   delete:
- *     summary: Delete an lecture by ID
+ *     summary: Delete a lecture by ID
  *     security:
  *       - bearerAuth: []
  *     tags: [Lecture Routes]
@@ -285,9 +272,9 @@
  *     security:
  *       - bearerAuth: []
  *     tags: [Lecture Routes]
- *     operationId: getLectureById
+ *     operationId: getLectureAttendees
  *     parameters:
- *       - name: id
+ *       - name: lecture_id
  *         in: query
  *         required: true
  *         type: int
@@ -315,9 +302,9 @@ import {
     deleteById,
     getById,
     getAll,
-    updateById
+    updateById,
 } from "../controllers/lecture.controller.js"
-import { getStudentAttendees } from "../controllers/attendance.controller.js"
+import { getLectureAttendees } from "../controllers/attendance.controller.js"
 import AdminMiddleware from "../middlewares/admin.middleware.js"
 
 const router = Router()
@@ -332,6 +319,6 @@ router.route("/all")
     .get(AdminMiddleware, getAll)
 
 router.route("/attendees")
-    .get(AdminMiddleware, getStudentAttendees)
+    .get(AdminMiddleware, getLectureAttendees)
 
 export default router

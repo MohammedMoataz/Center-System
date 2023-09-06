@@ -8,6 +8,7 @@
  *       required:
  *         - id
  *         - code
+ *         - cost
  *         - name
  *         - level
  *       properties:
@@ -18,6 +19,9 @@
  *         code:
  *           type: string
  *           description: The unique name string of the subject
+ *         cost:
+ *           type: integer
+ *           description: The cost of the subject
  *         name:
  *           type: string
  *           description: The name of the subject
@@ -156,7 +160,7 @@
  *     security:
  *       - bearerAuth: []
  *     tags: [Subject Routes]
- *     operationId: getAllSubject
+ *     operationId: getAllSubjects
  *     responses:
  *       '200':
  *         description: Subjects retrieved successfully

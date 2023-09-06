@@ -10,7 +10,7 @@ export default {
 
         return HallRepository.create(HallModel.get())
             .then((data) => data[0][0][0])
-            .catch(console.error)
+            .catch(err => { throw Error(err.message) })
     },
 
     updateById: async (hall) => {
@@ -19,20 +19,21 @@ export default {
 
         return HallRepository.updateById(HallModel.get())
             .then((data) => data[0])
-            .catch(console.error)
+            .catch(err => { throw Error(err.message) })
     },
 
-    getById: async (id) =>
-        HallRepository.getById(id)
+    getById: async (id) => {
+        return HallRepository.getById(id)
             .then((data) => {
                 HallDTO.set(data[0][0][0])
 
                 return HallDTO.get()
             })
-            .catch(console.error),
+            .catch(err => { throw Error(err.message) })
+    },
 
-    getAll: async () =>
-        HallRepository.getAll()
+    getAll: async () => {
+        return HallRepository.getAll()
             .then((data) => {
                 Array.from(data[0][0])
                     .forEach(hall => HallDTO.addAll(hall))
@@ -43,13 +44,14 @@ export default {
                 HallDTO.clear()
                 return data
             })
-            .catch(console.error),
+            .catch(err => { throw Error(err.message) })
+    },
 
     deleteById: async (id) => {
         let timestamp = getCurrentTimestamp()
 
         return HallRepository.deleteById(id, timestamp)
             .then((data) => data[0])
-            .catch(console.error)
+            .catch(err => { throw Error(err.message) })
     },
 }

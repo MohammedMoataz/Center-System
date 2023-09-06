@@ -1,66 +1,44 @@
-const LectureDTO = {
-    id: 0,
-    code: null,
-    timestamp: null,
-    cost: 0,
-    subject: {
-        id: 0,
-        code: null,
-    },
-    teacher: {
-        id: 0,
-        first_name: null,
-        last_name: null,
-        image: null,
-    },
-    hall: {
-        id: 0,
-        code: null,
-    },
-    admin: {
-        id: 0,
-        first_name: null,
-        last_name: null,
-    },
-
-    _created_at: null,
-    _updated_at: null,
-}
-
-let LecturesDTO = []
-
 export default {
-    set: (lecture) => {
-        LectureDTO.id = lecture.id
-        LectureDTO.code = lecture.code
-        LectureDTO.timestamp = lecture.timestamp
-        LectureDTO.cost = lecture.cost
-        LectureDTO.subject = lecture.subject
-        LectureDTO.teacher = lecture.teacher
-        LectureDTO.hall = lecture.hall
-        LectureDTO.admin = admin.lecture
+    from: (lecture) => {
+        return {
+            id: lecture.l_id,
+            code: lecture.l_code,
+            cost: lecture.l_cost,
+            timestamp: lecture.l_timestamp,
 
-        LectureDTO._created_at = lecture._created_at
-        LectureDTO._updated_at = lecture._updated_at
-    },
+            subject: {
+                id: lecture.s_id,
+                code: lecture.s_code,
+                cost: lecture.s_cost,
+                name: lecture.s_name,
+                level: lecture.s_level,
+                _created_at: lecture.s_created_at,
+                _updated_at: lecture.s_updated_at,
+            },
 
-    addAll: (lecture) => LecturesDTO.push({
-        id: lecture.id,
-        code: lecture.code,
-        timestamp: lecture.timestamp,
-        cost: lecture.cost,
-        subject: lecture.subject,
-        teacher: lecture.teacher,
-        hall: lecture.hall,
-        admin: lecture.admin,
+            hall: {
+                id: lecture.h_id,
+                code: lecture.h_code,
+                cost: lecture.h_cost,
+                capacity: lecture.h_capacity,
+                _created_at: lecture.h_created_at,
+                _updated_at: lecture.h_updated_at,
+            },
 
-        _created_at: lecture._created_at,
-        _updated_at: lecture._updated_at
-    }),
+            admin: {
+                id: lecture.a_id,
+                first_name: lecture.a_f_name,
+                last_name: lecture.a_l_name,
+                email: lecture.a_email,
+                phone_no: lecture.a_phone_no,
+                start_shift: lecture.a_start_shift,
+                end_shift: lecture.a_end_shift,
+                _created_at: lecture.a_created_at,
+                _updated_at: lecture.a_updated_at,
+            },
 
-    get: () => LectureDTO,
-
-    getAll: () => LecturesDTO,
-
-    clear: () => LecturesDTO = [],
+            _created_at: lecture.l_created_at,
+            _updated_at: lecture.l_updated_at,
+        }
+    }
 }

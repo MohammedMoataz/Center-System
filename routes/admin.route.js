@@ -14,7 +14,7 @@
  *         - super_password
  *         - start_shift
  *         - end_shift
- *         - access_token
+ *         - refresh_token
  *       properties:
  *         id:
  *           type: integer
@@ -51,7 +51,7 @@
  *           format: date-time
  *           description: End time of the admin's shift
  *           example: '22:30:09'
- *         access_token:
+ *         refresh_token:
  *           type: string
  *           description: Access token of the admin
  *           example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
@@ -76,14 +76,6 @@
  *       - bearerAuth: []
  *     tags: [Admin Routes]
  *     operationId: createAdmin
- *     parameters:
- *       - name: token
- *         in: header
- *         description: token to be passed in the header
- *         schema:
- *           type: http
- *           scheme: bearer
- *           bearerFormat: JWT
  *     consumes:
  *       - application/json
  *     produces:
@@ -114,14 +106,6 @@
  *       - bearerAuth: []
  *     tags: [Admin Routes]
  *     operationId: updateAdminById
- *     parameters:
- *       - name: token
- *         in: header
- *         description: token to be passed in the header
- *         schema:
- *           type: http
- *           scheme: bearer
- *           bearerFormat: JWT
  *     consumes:
  *       - application/json
  *     produces:
@@ -178,13 +162,6 @@
  *     tags: [Admin Routes]
  *     operationId: deleteAdminById
  *     parameters:
- *       - name: token
- *         in: header
- *         description: token to be passed in the header
- *         schema:
- *           type: http
- *           scheme: bearer
- *           bearerFormat: JWT
  *       - name: id
  *         in: query
  *         required: true

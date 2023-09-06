@@ -11,10 +11,10 @@ export default {
         );
     `),
 
-    addPhone: async (teacher_phone) => await executeQuery(`
+    addPhone: async (phone) => await executeQuery(`
         call center_system.insert_teacher_phone(
-            '${teacher_phone.t_id}', 
-            '${teacher_phone.phone_no}'
+            '${phone.t_id}', 
+            '${phone.phone_no}'
         );
     `),
 
@@ -29,15 +29,15 @@ export default {
         );
     `),
 
-    updatePhone: async (teacher_phone) => await executeQuery(`
+    updatePhone: async (phone) => await executeQuery(`
         call center_system.update_teacher_phone(
-            '${teacher_phone.t_id}', 
-            '${teacher_phone.phone_no}'
+            '${phone.id}', 
+            '${phone.phone_no}'
         );
     `),
 
     getById: async (id) => await executeQuery(`
-        call center_system.get_teacher(
+        call center_system.get_teacher_details(
             '${id}'
         );
     `),
@@ -49,7 +49,7 @@ export default {
     `),
 
     getAll: async () => await executeQuery(`
-        call center_system.get_all_teachers();
+        call center_system.get_all_teachers_details();
     `),
 
     deleteById: async (id, deleted_at) => await executeQuery(`

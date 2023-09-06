@@ -1,6 +1,7 @@
 const SubjectModel = {
     id: 0,
     code: null,
+    cost: 0,
     name: null,
     level: 0,
 
@@ -13,6 +14,7 @@ export default {
     set: (subject) => {
         SubjectModel.id = subject.id
         SubjectModel.code = subject.code
+        SubjectModel.cost = subject.cost
         SubjectModel.name = subject.name
         SubjectModel.level = subject.level
 

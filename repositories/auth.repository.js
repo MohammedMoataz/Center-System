@@ -3,15 +3,13 @@ import { executeQuery } from "../config/db/db.js"
 export default {
     loginAdmin: async (email, password) => await executeQuery(`
         call center_system.login_admin(
-            '${email}',
-            '${password}'
+            '${email}'
         );
     `),
 
     loginStudent: async (email, password) => await executeQuery(`
         call center_system.login_student(
-            '${email}',
-            '${password}'
+            '${email}'
         );
     `),
 

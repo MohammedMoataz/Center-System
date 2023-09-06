@@ -1,6 +1,7 @@
 const SubjectDTO = {
     id: 0,
     code: null,
+    cost: 0,
     name: null,
     level: 0,
 
@@ -14,6 +15,7 @@ export default {
     set: (subject) => {
         SubjectDTO.id = subject.id
         SubjectDTO.code = subject.code
+        SubjectDTO.cost = subject.cost
         SubjectDTO.name = subject.name
         SubjectDTO.level = subject.level
 
@@ -25,6 +27,7 @@ export default {
         id: subject.id,
         first_name: subject.f_name,
         code: subject.code,
+        cost: subject.cost,
         name: subject.name,
         level: subject.level,
 

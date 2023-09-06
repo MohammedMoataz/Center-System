@@ -6,11 +6,10 @@ export default (req, res, next) => {
 
     if (token == null) return res.status(401).send("Unauthorized")
 
-    verifyToken(token, (err, student) => {
+    verifyToken(token, (err, payload) => {
         if (err) return res.status(403).send("Forbidden")
 
-        req.student = student
-        console.log({ student })
+        req.payload = payload
         next()
     })
 }

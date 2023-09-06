@@ -16,7 +16,7 @@ import AttendanceRoutes from './routes/attendance.route.js'
 import Options from './common/swagger_options.js'
 
 config()
-const PORT = process.env.PORT || 4000
+const PORT = process.env.PORT || 5000
 const app = express()
 
 // Initialize swagger-jsdoc -> returns validated swagger spec in json format
@@ -42,7 +42,7 @@ app.use(
     swaggerUi.serve,
     swaggerUi.setup(swaggerSpec)
 )
-
+let hsssash
 // Running server
 app.listen(PORT, () => {
     console.info(`Server is running on http://localhost:${PORT}`)

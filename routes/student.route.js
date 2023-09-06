@@ -11,7 +11,6 @@
  *         - email
  *         - password
  *         - phone_number
- *         - parents_numbers
  *         - address
  *         - level
  *         - access_token
@@ -30,6 +29,9 @@
  *           type: string
  *           format: email
  *           description: Email address of the student
+ *         username:
+ *           type: string
+ *           description: Username of the student
  *         password:
  *           type: string
  *           format: password
@@ -38,7 +40,7 @@
  *           type: string
  *           pattern: '^\d{4}-\d{3}-\d{4}$'
  *           description: Phone number of the student
- *         parents_numbers:
+ *         parents:
  *           type: array
  *           items:
  *             $ref: '#/components/schemas/Parent'
@@ -68,6 +70,7 @@
  *     Parent:
  *       type: object
  *       required:
+ *         - student_id
  *         - parent_number
  *         - label
  *       properties:
@@ -75,7 +78,10 @@
  *           type: integer
  *           minimum: 1
  *           description: The ID of the student's parent
- *         phone_number:
+ *         student_id:
+ *           type: integer
+ *           description: The parent's student id
+ *         parent_number:
  *           type: string
  *           pattern: '^\d{4}-\d{3}-\d{4}$'
  *           description: The phone number of the parent
@@ -204,6 +210,11 @@
  *       - bearerAuth: []
  *     tags: [Student Routes]
  *     operationId: getAllStudentsAttendees
+ *     parameters:
+ *       - name: student_id
+ *         in: query
+ *         required: true
+ *         type: integer
  *     responses:
  *       '200':
  *         description: Students attendees retrieved successfully
@@ -255,11 +266,6 @@
  *         application/json:
  *           schema:
  *             $ref: '#/components/schemas/Parent'
- *     parameters:
- *       - name: parent_id
- *         in: query
- *         required: true
- *         type: integer
  *     responses:
  *       '200':
  *         description: Student updated successfully
@@ -295,6 +301,11 @@
  *       - bearerAuth: []
  *     tags: [Student Routes]
  *     operationId: getAllStudentsParents
+ *     parameters:
+ *       - name: student_id
+ *         in: query
+ *         required: true
+ *         type: integer
  *     responses:
  *       '200':
  *         description: Students parents retrieved successfully
@@ -320,7 +331,7 @@ import {
     addParent,
     updateParent,
     getParents,
-    deleteParent
+    deleteParent,
 } from "../controllers/student.controller.js"
 import { getStudentAttendees } from "../controllers/attendance.controller.js"
 

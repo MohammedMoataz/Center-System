@@ -76,11 +76,6 @@
  *         application/json:
  *           schema:
  *             $ref: '#/components/schemas/Hall'
- *     parameters:
- *       - name: id
- *         in: query
- *         required: true
- *         type: integer
  *     responses:
  *       '200':
  *         description: Hall updated successfully

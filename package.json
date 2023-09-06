@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "server": "nodemon server.js",
-    "auth": "nodemon server.auth.js",
+    "auth": "nodemon auth.server.js",
     "test": "npm test test/*"
   },
   "author": "MobiCare Team",

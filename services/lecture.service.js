@@ -9,8 +9,8 @@ export default {
         LectureModel.set(lecture)
 
         return LectureRepository.create(LectureModel.get())
-            .then((data) => data[0][0][0])
-            .catch(console.error)
+            .then((data) => data[0])
+            .catch(err => { throw Error(err.message) })
     },
 
     updateById: async (lecture) => {
@@ -19,37 +19,42 @@ export default {
 
         return LectureRepository.updateById(LectureModel.get())
             .then((data) => data[0])
-            .catch(console.error)
+            .catch(err => { throw Error(err.message) })
     },
 
-    getById: async (id) =>
-        LectureRepository.getById(id)
+    getById: async (id) => {
+        return LectureRepository.getById(id)
             .then((data) => {
-                LectureDTO.set(data[0][0][0])
+                let lecture = {}
+                data[0][0].map(record => {
+                    if (!lecture[`${record.l_code}`])
+                        lecture[`${record.l_code}`] = LectureDTO.from(record)
+                })
 
-                return LectureDTO.get()
+                return lecture
             })
-            .catch(console.error),
+            .catch(err => { throw Error(err.message) })
+    },
 
-    getAll: async () =>
-        LectureRepository.getAll()
+    getAll: async () => {
+        return LectureRepository.getAll()
             .then((data) => {
-                Array.from(data[0][0])
-                    .forEach(lecture => LectureDTO.addAll(lecture))
+                let lectures = {}
+                data[0][0].map(record => {
+                    if (!lectures[`${record.l_code}`])
+                        lectures[`${record.l_code}`] = LectureDTO.from(record)
+                })
 
-                return LectureDTO.getAll()
+                return lectures
             })
-            .then((data) => {
-                LectureDTO.clear()
-                return data
-            })
-            .catch(console.error),
+            .catch(err => { throw Error(err.message) })
+    },
 
     deleteById: async (id) => {
         let timestamp = getCurrentTimestamp()
 
         return LectureRepository.deleteById(id, timestamp)
             .then((data) => data[0])
-            .catch(console.error)
+            .catch(err => { throw Error(err.message) })
     },
 }

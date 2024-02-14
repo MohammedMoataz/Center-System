@@ -1,6 +1,6 @@
 # Center-System-Server
 
-<!-- A nice project with a nice description -->
+![educational center system endpoints](https://github.com/CatchCode-Team/Center-System-Server/assets/81831838/e8a3816e-464d-4cf1-9dcf-40969eaccd34)
 
 ---
 ## Requirements

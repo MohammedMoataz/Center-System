@@ -9,6 +9,7 @@ let ParentsDTO = []
 export default {
     from: (student) => {
         return {
+            id: student.id,
             first_name: student.f_name,
             last_name: student.l_name,
             email: student.email,

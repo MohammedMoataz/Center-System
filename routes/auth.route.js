@@ -281,9 +281,6 @@ import {
 
 const router = Router()
 
-router.route('/')
-    .get(redirect)
-
 router.route('/admin/login')
     .post(adminLogin)
 

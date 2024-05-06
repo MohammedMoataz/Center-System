@@ -42,7 +42,7 @@ app.use(
     swaggerUi.serve,
     swaggerUi.setup(swaggerSpec)
 )
-let hsssash
+
 // Running server
 app.listen(PORT, () => {
     console.info(`Server is running on http://localhost:${PORT}`)

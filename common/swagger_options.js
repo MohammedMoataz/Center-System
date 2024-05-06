@@ -23,6 +23,10 @@ const swaggerDefinition = {
     },
     servers: [
         {
+            url: `https://center-system-server.onrender.com`,
+            description: 'Production Server',
+        },
+        {
             url: `http://localhost:${PORT}`,
             description: 'Development Server',
         },

@@ -45,8 +45,8 @@ app.use(
 
 // Running server
 app.listen(PORT, () => {
-    console.info(`Server is running on http://localhost:${PORT}`)
-    console.info(`for swagger documentation you can visit http://localhost:${PORT}/api-docs`)
+    console.info(`Server is running on https://center-system-server.onrender.com`)
+    console.info(`for swagger documentation you can visit https://center-system-server.onrender.com/api-docs`)
 })
 
 // Global Error Handler. IMPORTANT function params MUST start with err

@@ -269,7 +269,6 @@
 import { Router } from 'express'
 
 import {
-    redirect,
     adminLogin,
     login,
     register,

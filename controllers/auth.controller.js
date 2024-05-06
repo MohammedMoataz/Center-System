@@ -11,6 +11,8 @@ import StudentService from '../services/student.service.js'
 config()
 const PORT = process.env.PORT || 5000
 
+// export const redirect = (req, res) => res.redirect(`http://localhost:${PORT}/api-docs`)
+
 export const adminLogin = async (req, res) => {
     const { email, password } = req.body
 

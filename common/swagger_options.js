@@ -16,9 +16,9 @@ const swaggerDefinition = {
             url: "https://spdx.org/licenses/MIT.html",
         },
         contact: {
-            name: 'Catch Code Team',
-            url: 'https://catch-code.netlify.com',
-            email: "catchcode.tech@gmail.com",
+            name: 'Mohammed Moataz',
+            url: 'https://mohammed-moataz.vercel.app/',
+            email: "imohammedmoataz@gmail.com",
         },
     },
     servers: [
